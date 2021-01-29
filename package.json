@@ -1,0 +1,22 @@
+{
+  "name": "vue-bullet-journal-1",
+  "version": "1.0.0",
+  "description": "Vue Bullet Journal",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vkwho9ar/vue-bullet-journal.git"
+  },
+  "author": "vkwho",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vkwho9ar/vue-bullet-journal/issues"
+  },
+  "homepage": "https://github.com/vkwho9ar/vue-bullet-journal#readme",
+  "devDependencies": {
+    "@vue/cli-plugin-router": "^4.5.11"
+  }
+}
