@@ -33,7 +33,16 @@ const getters = {
 
 const actions = {
    updateItem({ commit }, updatedItem) {
+      //axios stuff
       commit("updateStateItems", updatedItem);
+   },
+   addItem({ commit }, newItem) {
+      // axios stuff
+      commit("addStateItem", newItem);
+   },
+   deleteItem({ commit }, deleteId) {
+      // axios stuff
+      commit("deleteStateItem", deleteId);
    },
 };
 
@@ -43,6 +52,12 @@ const mutations = {
          (existingItem) => existingItem.id === updatedItem.id
       );
       state.items.splice(itemIndex, 1, updatedItem);
+   },
+   addStateItem(state, newItem) {
+      state.items.push(newItem);
+   },
+   deleteStateItem(state, deleteId) {
+      state.items = state.items.filter((item) => item.id !== deleteId);
    },
 };
 

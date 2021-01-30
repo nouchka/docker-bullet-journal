@@ -1,7 +1,6 @@
 <template>
-   <div class="item">
+   <div class="item" v-bind:class="{'completed':item.completed}">
        <!-- <h2>{{item.content}}</h2> -->
-       <form>
            <input class="item-content" type="text" v-bind:value="item.content" name="content" disabled/>
            
            <div class="details-container">
@@ -9,13 +8,11 @@
                 <div class="btn-container">
                     <v-icon @click="toggleCompleted(item)" name="check" class="item-icon" v-bind:class="{'completed':item.completed}"/>
                     <v-icon name="pen" class="item-icon"/>
-                    <v-icon name="trash" class="item-icon"/>
+                    <v-icon @click="deleteItem(item.id)" name="trash" class="item-icon"/>
                 </div>
             </div>
-           
-        </form>
     </div>
-</template>
+</template> 
 
 <script>
 import {mapActions} from "vuex";
@@ -25,7 +22,7 @@ export default {
     name: "Item",
     props: ["item"],
     methods: {
-       ...mapActions(["updateItem"]),
+       ...mapActions(["updateItem", "deleteItem"]),
       formatDateTime(dateTime) {
       const date = new Date(dateTime);
       const weekday = new Intl.DateTimeFormat("default", {
@@ -65,6 +62,10 @@ export default {
     overflow: hidden;
     padding: 5rem 10rem;
     /* margin-bottom: 15rem; */
+}
+
+.item.completed {
+    background: rgba(136, 205, 221, 0.2);
 }
 
 .item-content{
