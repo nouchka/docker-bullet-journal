@@ -107,6 +107,10 @@ button {
 
 }
 
+.item-icon {
+  cursor: pointer;
+}
+
 .panel {
     position: relative;
     border-radius: 10rem;
@@ -133,4 +137,15 @@ button {
   padding: 2.5vh 2.5vw;
   background: linear-gradient(#c1dfc4 0%, #b7e2f0 100%);
 }
+
+.flex {
+  display: flex;
+  align-items: baseline;
+}
+
+.flex-vertical {
+  display: flex;
+  flex-direction: column;
+}
+
 </style>

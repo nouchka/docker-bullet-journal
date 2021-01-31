@@ -1,16 +1,14 @@
 <template>
    <div class="item" v-bind:class="{'completed':item.completed}">
-       <!-- <h2>{{item.content}}</h2> -->
-           <input class="item-content" type="text" v-bind:value="item.content" name="content" disabled/>
-           
-           <div class="details-container">
-                <h5>{{formatDateTime(item.dateTime)}}</h5>
-                <div class="btn-container">
-                    <v-icon @click="toggleCompleted(item)" name="check" class="item-icon" v-bind:class="{'completed':item.completed}"/>
-                    <v-icon name="pen" class="item-icon"/>
-                    <v-icon @click="deleteItem(item.id)" name="trash" class="item-icon"/>
-                </div>
+        <p><v-icon v-bind:name="typeIcon(item.type)" class="display-icon"/>{{item.content}}</p>
+        <div class="details-container">
+            <h5>{{formatDateTime(item.dateTime)}}</h5>
+            <div class="btn-container">
+                <v-icon @click="toggleCompleted(item)" name="check" class="btn-icon" v-bind:class="{'completed':item.completed}"/>
+                <v-icon @click="setEditItem(item)" name="pen" class="btn-icon"/>
+                <v-icon @click="deleteItem(item.id)" name="trash" class="btn-icon"/>
             </div>
+        </div>
     </div>
 </template> 
 
@@ -22,7 +20,7 @@ export default {
     name: "Item",
     props: ["item"],
     methods: {
-       ...mapActions(["updateItem", "deleteItem"]),
+       ...mapActions(["updateItem", "deleteItem", "setEditItem"]),
       formatDateTime(dateTime) {
       const date = new Date(dateTime);
       const weekday = new Intl.DateTimeFormat("default", {
@@ -45,7 +43,18 @@ export default {
 
         console.log(updatedItem);
        this.updateItem(updatedItem);
-   }
+   },
+    typeIcon(type) {
+        if (type === "event") {
+            return "calendar-day";
+        } else if (type === "todo") {
+            return "tasks"
+        } else {
+            return "list";
+        }
+    }
+
+
     } 
 }
 </script>
@@ -53,6 +62,12 @@ export default {
 <style scoped>
 
 
+p {
+    padding: 5rem 0;
+    border-bottom: 1rem solid rgb(25, 81, 94,0.3);
+    margin-bottom: 5rem;
+    width: 100%;
+}
 
 .item {
     border-radius: 10rem;
@@ -83,10 +98,17 @@ export default {
     padding: 0 5rem;
 }
 
-svg.item-icon {
+svg {
     width: 20rem;
-    height: 20rem;
     padding: 0 5rem;
+}
+
+svg.display-icon {
+    filter: opacity(0.7);
+}
+
+svg.btn-icon {
+    height: 20rem;
     cursor: pointer;
 }
 

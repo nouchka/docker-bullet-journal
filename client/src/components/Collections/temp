@@ -1,0 +1,230 @@
+<template>
+   <div id="create-item">
+       <div class="header"><h3><span>C</span>reate <span>I</span>tem</h3></div>
+       <form @submit="addingItem">
+            <div class="type-container">
+                <input type="radio" id="type-general" value="general" v-model="type">
+                <label for="type-general"><h4>General</h4></label>
+                <input type="radio" id="type-todo" value="todo" v-model="type">
+                <label for="type-todo" class="center"><h4>To Do</h4></label>
+                <input type="radio" id="type-event" value="event" v-model="type">
+                <label for="type-event"><h4>Event</h4></label>
+            </div>
+            <input type="text" placeholder="Item" v-model="content"/>
+            <input type="text" placeholder="Category (optional)" v-model="category"/>
+            <input type="datetime-local" v-model="dateTime"/>
+            <button type="submit"><h5>Submit</h5></button>
+        </form>
+
+    </div>        
+</template>
+
+<script>
+import {mapActions} from "vuex"
+
+export default {
+    name: "CreateItem",
+    components: {
+    },
+    data(){
+        return {
+            type: "general",
+            content: "",
+            category: "",
+            dateTime: "",
+        }
+    },
+    methods: {
+        ...mapActions(['addItem']),
+        addingItem(e) {
+            e.preventDefault();
+            const newItem = {
+                id: 4,
+                content: this.content,
+                type: this.type,
+                category: this.category,
+                dateTime: this.dateTime,
+                completed: false,
+            }
+
+            this.addItem(newItem);
+            
+            this.type = "general",
+            this.content = "",
+            this.category = "",
+            this.dateTime = ""
+
+        }
+    }
+}
+</script>
+
+<style scoped>
+
+#create-item {
+    position: relative;
+    border-radius: 10rem;
+    width: 100%;
+    height: 100%;
+    background: rgb(255, 255, 255, 0.7);
+    backdrop-filter: blue(10rem);
+    overflow: hidden;
+}
+
+.header {
+    height: 30rem;
+    padding: 5rem 10rem;
+}
+
+input[type="radio"]:checked + label {
+    background:#19515e;
+}
+
+input[type="radio"]:checked + label h4{
+    color: white;
+}
+
+form {
+    padding: 10rem;
+}
+
+input {
+  padding: 5rem 0;
+}
+
+
+.type-container {
+    display: flex;
+    border-radius: 5rem;
+    justify-content: space-between;
+    border: 1rem solid #19515e;
+    margin-bottom: 10rem;
+}
+
+label {
+    width: 100%;
+    cursor: pointer;
+}
+
+.selected {
+    background:  #19515e;
+    color: white;
+}
+
+
+.center {
+    border-left: 1rem solid #19515e;
+    border-right: 1rem solid  #19515e;
+}
+
+h4 {
+    text-align: center;
+}
+
+</style>
+
+
+
+
+
+<template>
+   <div class="item" v-bind:class="{'completed':item.completed}">
+       <p>{{item.content}}</p>
+           
+           <div class="details-container">
+                <h5>{{formatDateTime(item.dateTime)}}</h5>
+                <div class="btn-container">
+                    <v-icon @click="toggleCompleted(item)" name="check" class="item-icon" v-bind:class="{'completed':item.completed}"/>
+                    <v-icon name="pen" class="item-icon"/>
+                    <v-icon @click="deleteItem(item.id)" name="trash" class="item-icon"/>
+                </div>
+            </div>
+    </div>
+</template> 
+
+<script>
+import {mapActions} from "vuex";
+
+
+export default {
+    name: "Item",
+    props: ["item"],
+    methods: {
+       ...mapActions(["updateItem", "deleteItem"]),
+      formatDateTime(dateTime) {
+      const date = new Date(dateTime);
+      const weekday = new Intl.DateTimeFormat("default", {
+         weekday: "narrow",
+      }).format(date);
+
+      const time = new Intl.DateTimeFormat("default", {
+         hour12: true,
+         hour: "numeric",
+         minute: "numeric",
+      }).format(date);
+
+      return (`${weekday} ${dateTime.substring(0, 10)} | ${time}`);
+   },
+   toggleCompleted(item) {
+       const updatedItem =  {
+           ...item,
+           ["completed"]: !item.completed
+       }
+
+        console.log(updatedItem);
+       this.updateItem(updatedItem);
+   }
+    } 
+}
+</script>
+
+<style scoped>
+
+
+p {
+    padding: 5rem 0;
+    border-bottom: 1rem solid rgb(25, 81, 94,0.3);
+    margin-bottom: 5rem;
+}
+
+.item {
+    border-radius: 10rem;
+    width: 100%;
+    background: rgb(255, 255, 255, 0.6);
+    backdrop-filter: blue(10rem);
+    overflow: hidden;
+    padding: 5rem 10rem;
+    /* margin-bottom: 15rem; */
+}
+
+.item.completed {
+    background: rgba(136, 205, 221, 0.2);
+}
+
+.item-content{
+    margin: 10rem 0;
+    width: 100%;
+}
+
+.details-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.btn-container {
+    padding: 0 5rem;
+}
+
+svg.item-icon {
+    width: 20rem;
+    height: 20rem;
+    padding: 0 5rem;
+    cursor: pointer;
+}
+
+.completed {
+    fill: rgb(0, 255, 0);
+}
+
+</style>

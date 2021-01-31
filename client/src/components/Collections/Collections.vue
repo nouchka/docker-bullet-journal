@@ -1,5 +1,5 @@
 <template>
-   <div id="collections">
+   <div id="collections" class="group-container">
        <div class="header"><h1><span>C</span>ollections</h1></div>
        <div class="item-container">
            <div v-for="item in allItems" :key="item.id">
@@ -27,20 +27,6 @@ export default {
 </script>
 
 <style scoped>
-
-#collections {
-    position: relative;
-    border-radius: 10rem;
-    width: 100%;
-    height: 100%;
-    background: rgb(255, 255, 255, 0.4);
-    backdrop-filter: blue(10rem);
-    overflow: hidden;
-}
-
-.header {
-   padding-left: 20rem; 
-}
 
 .item-container {
     display: grid;

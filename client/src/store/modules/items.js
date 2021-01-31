@@ -3,7 +3,7 @@ const state = {
       {
          id: 1,
          content: "Buy vitamins",
-         type: "todo",
+         type: "general",
          category: "Health",
          dateTime: "2021-01-20T13:30",
          completed: false,
@@ -19,16 +19,26 @@ const state = {
       {
          id: 3,
          content: "Something",
-         type: "todo",
+         type: "event",
          category: "Baby",
          dateTime: "2021-01-12T18:30",
          completed: false,
       },
    ],
+   newItem: {
+      content: "",
+      type: "general",
+      category: "",
+      dateTime: new Date().toISOString().substring(0, 11) + "00:00",
+      completed: false,
+   },
+   createMode: "create",
 };
 
 const getters = {
    allItems: (state) => state.items,
+   newItem: (state) => state.newItem,
+   getMode: (state) => state.createMode,
 };
 
 const actions = {
@@ -44,6 +54,9 @@ const actions = {
       // axios stuff
       commit("deleteStateItem", deleteId);
    },
+   setEditItem({ commit }, item) {
+      commit("changeToEdit", item);
+   },
 };
 
 const mutations = {
@@ -52,12 +65,33 @@ const mutations = {
          (existingItem) => existingItem.id === updatedItem.id
       );
       state.items.splice(itemIndex, 1, updatedItem);
+
+      state.newItem = {
+         content: "",
+         type: "general",
+         category: "",
+         dateTime: new Date().toISOString().substring(0, 16) + "00:00",
+         completed: false,
+      };
+      state.createMode = "create";
    },
    addStateItem(state, newItem) {
       state.items.push(newItem);
+
+      state.newItem = {
+         content: "",
+         type: "general",
+         category: "",
+         dateTime: new Date().toISOString().substring(0, 16) + "00:00",
+         completed: false,
+      };
    },
    deleteStateItem(state, deleteId) {
       state.items = state.items.filter((item) => item.id !== deleteId);
+   },
+   changeToEdit(state, item) {
+      state.newItem = item;
+      state.createMode = "edit";
    },
 };
 

@@ -1,18 +1,18 @@
 <template>
    <div id="create-item">
-       <div class="header"><h3><span>C</span>reate <span>I</span>tem</h3></div>
+       <div class="header"><h3><span>{{title()[0]}}</span>{{title()[1]}} <span>I</span>tem</h3></div>
        <form @submit="addingItem">
             <div class="type-container">
-                <input type="radio" id="type-general" value="general" v-model="type">
+                <input type="radio" id="type-general" value="general" v-model="wipItem.type">
                 <label for="type-general"><h4>General</h4></label>
-                <input type="radio" id="type-todo" value="todo" v-model="type">
+                <input type="radio" id="type-todo" value="todo" v-model="wipItem.type">
                 <label for="type-todo" class="center"><h4>To Do</h4></label>
-                <input type="radio" id="type-event" value="event" v-model="type">
+                <input type="radio" id="type-event" value="event" v-model="wipItem.type">
                 <label for="type-event"><h4>Event</h4></label>
             </div>
-            <input type="text" placeholder="Item" v-model="content"/>
-            <input type="text" placeholder="Category (optional)" v-model="category"/>
-            <input type="datetime-local" v-model="dateTime"/>
+            <input type="text" placeholder="Item" v-model="wipItem.content" required/>
+            <input type="text" placeholder="Category (optional)" v-model="wipItem.category"/>
+            <input type="datetime-local" v-model="wipItem.dateTime" :min="wipItem.dateTime"/>
             <button type="submit"><h5>Submit</h5></button>
         </form>
 
@@ -26,29 +26,32 @@ export default {
     name: "CreateItem",
     components: {
     },
-    data(){
-        return {
-            type: "general",
-            content: "",
-            category: "",
-            dateTime: "",
+    computed: {
+        wipItem: {
+            get() {
+                return this.$store.getters.newItem;
+            }
+        },
+        createMode: {
+            get() {
+                return this.$store.getters.getMode;
+            }
         }
     },
     methods: {
-        ...mapActions(['addItem']),
+        ...mapActions(['addItem', 'updateItem']),
         addingItem(e) {
             e.preventDefault();
-            const newItem = {
-                id: 4,
-                content: this.content,
-                type: this.type,
-                category: this.category,
-                dateTime: this.dateTime,
-                completed: false,
-            }
 
-            this.addItem(newItem);
-        }
+            if (this.createMode === "create") {
+                this.addItem(this.wipItem);
+            } else {
+                this.updateItem(this.wipItem);
+            }
+        },
+        title() {
+            return [this.createMode.substring(0,1), this.createMode.substring(1)] ;
+        },
     }
 }
 </script>
