@@ -12,11 +12,6 @@ export default {
   components: {
     Dashboard
   },
-  data() {
-    return {
-      items: []
-    }
-  }
 }
 </script>
 

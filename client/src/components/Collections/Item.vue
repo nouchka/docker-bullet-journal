@@ -2,7 +2,7 @@
    <div class="item" v-bind:class="{'completed':item.completed}">
         <p><v-icon v-bind:name="typeIcon(item.type)" class="display-icon"/>{{item.content}}</p>
         <div class="details-container">
-            <h5>{{formatDateTime(item.dateTime)}}</h5>
+            <h5>{{item.category}} || {{formatDateTime(item.dateTime)}}</h5>
             <div class="btn-container">
                 <v-icon @click="toggleCompleted(item)" name="check" class="btn-icon" v-bind:class="{'completed':item.completed}"/>
                 <v-icon @click="setEditItem(item)" name="pen" class="btn-icon"/>
@@ -24,7 +24,7 @@ export default {
       formatDateTime(dateTime) {
       const date = new Date(dateTime);
       const weekday = new Intl.DateTimeFormat("default", {
-         weekday: "narrow",
+         weekday: "short",
       }).format(date);
 
       const time = new Intl.DateTimeFormat("default", {
@@ -40,8 +40,6 @@ export default {
            ...item,
            ["completed"]: !item.completed
        }
-
-        console.log(updatedItem);
        this.updateItem(updatedItem);
    },
     typeIcon(type) {

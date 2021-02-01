@@ -2,19 +2,18 @@
    <div id="collections" class="group-container">
        <div class="header"><h1><span>C</span>ollections</h1></div>
        <div class="item-container">
-           <div v-for="item in allItems" :key="item.id">
+           <div v-for="item in displayItems" :key="item.id">
                <Item v-bind:item="item"/>
            </div>
        </div>
        <CollectionOptions />
-
     </div>        
 </template>
 
 <script>
 import Item from "./Item"
 import CollectionOptions from "./CollectionOptions"
-import {mapGetters} from "vuex"
+import {mapActions} from "vuex"
 
 export default {
     name: "Collections",
@@ -22,7 +21,30 @@ export default {
         Item,
         CollectionOptions,
     },
-    computed: mapGetters(["allItems"])
+    computed: {
+        displayItems () {
+            const {property, value} = this.$store.getters.filterConditions;
+            const sortBy = this.$store.getters.sortConditions;
+
+            let items = [...this.$store.getters.allItems];
+
+            if (sortBy === "createdLIFO" ) {
+                items.reverse();
+            } else if (sortBy === "asc") {
+                items.sort((a,b) => a.content.toUpperCase() < b.content.toUpperCase() ? -1 : 1) 
+            } else if (sortBy === "dueLIFO") {
+                items.sort((a,b) => a.dateTime < b.dateTime ? -1 : 1) 
+            }
+
+            if (value !== "") {
+                items = items.filter((item) => item[property] === value);
+            }
+            return items;
+            }   
+    },
+    methods: {
+        ...mapActions(['changeSort']),
+    },
 }
 </script>
 
@@ -41,5 +63,4 @@ export default {
 .item-container::-webkit-scrollbar {
     display: none;
 }
-
 </style>

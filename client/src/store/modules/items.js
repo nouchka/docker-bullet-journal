@@ -33,15 +33,29 @@ const state = {
       completed: false,
    },
    createMode: "create",
+   filterConditions: {
+      property: "",
+      value: "",
+   },
+   sortConditions: "FIFO",
 };
 
 const getters = {
    allItems: (state) => state.items,
    newItem: (state) => state.newItem,
    getMode: (state) => state.createMode,
+   categories: (state) => [
+      ...new Set(state.items.map((item) => item.category)),
+   ],
+   filterConditions: (state) => state.filterConditions,
+   sortConditions: (state) => state.sortConditions,
 };
 
 const actions = {
+   // initialize({ commit }) {
+   //    axios - 1. fetch allItems, 2. copy to displayItems
+   //    console.log("initialize");
+   // },
    updateItem({ commit }, updatedItem) {
       //axios stuff
       commit("updateStateItems", updatedItem);
@@ -57,6 +71,12 @@ const actions = {
    setEditItem({ commit }, item) {
       commit("changeToEdit", item);
    },
+   changeFilter({ commit }, condition) {
+      commit("setFilter", condition);
+   },
+   changeSort({ commit }, condition) {
+      commit("setSort", condition);
+   },
 };
 
 const mutations = {
@@ -70,7 +90,7 @@ const mutations = {
          content: "",
          type: "general",
          category: "",
-         dateTime: new Date().toISOString().substring(0, 16) + "00:00",
+         dateTime: new Date().toISOString().substring(0, 11) + "00:00",
          completed: false,
       };
       state.createMode = "create";
@@ -82,7 +102,7 @@ const mutations = {
          content: "",
          type: "general",
          category: "",
-         dateTime: new Date().toISOString().substring(0, 16) + "00:00",
+         dateTime: new Date().toISOString().substring(0, 11) + "00:00",
          completed: false,
       };
    },
@@ -92,6 +112,12 @@ const mutations = {
    changeToEdit(state, item) {
       state.newItem = item;
       state.createMode = "edit";
+   },
+   setFilter(state, condition) {
+      state.filterConditions = condition;
+   },
+   setSort(state, condition) {
+      state.sortConditions = condition;
    },
 };
 
