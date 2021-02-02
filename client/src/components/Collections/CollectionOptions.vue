@@ -22,7 +22,7 @@
                     </div>
                     <div class="option-btn show-categories" title="By Category">
                         <v-icon name="object-group" class="btn-icon" :class="{'active':filterConditions.property === 'category'}"/>
-                        <div class="category-dropup">
+                        <div class="category-dropup scroll">
                             <p v-for="category in categories" :key="category" 
                                 @click="filtering('category', category)">
                             {{category}}
@@ -87,7 +87,6 @@ h3 {
     width: 100%;
     height: 5vh;
     background: rgb(25, 81, 94, 0.2);
-    /* overflow: hidden; */
 }
 
 .outline {
@@ -113,7 +112,6 @@ h3 {
 
 .option-container {
     position: relative;
-   
     display: flex;
     padding: 5rem 10rem;
 }
@@ -125,7 +123,6 @@ h3 {
 .option-category {
     border-right: 1rem solid  rgb(25, 81, 94);    
 }
-
 
 .option-btn {
     width: 30rem;
@@ -150,19 +147,17 @@ h3 {
 }
 
 .category-dropup {
+    width: 200rem;
     position: absolute;
-    bottom: 5vh;
+    bottom: 4vh;
     right: 0;
-    background: rgb(255, 255, 255, 0.6);
-    width: 120rem;
-    display: none;
 }
 
-.category-dropup p{
+/* .category-dropup p{
     padding: 3rem 5rem;
     border-bottom: 1rem dashed rgb(25, 81, 94, 0.3);
     cursor: pointer;
-}
+} */
 
 
 

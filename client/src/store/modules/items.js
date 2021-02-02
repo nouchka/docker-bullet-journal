@@ -1,30 +1,8 @@
+import axios from "axios";
+
 const state = {
-   items: [
-      {
-         id: 1,
-         content: "Buy vitamins",
-         type: "general",
-         category: "Health",
-         dateTime: "2021-01-20T13:30",
-         completed: false,
-      },
-      {
-         id: 2,
-         content: "Build crib",
-         type: "todo",
-         category: "Baby",
-         dateTime: "2021-02-12T18:30",
-         completed: false,
-      },
-      {
-         id: 3,
-         content: "Something",
-         type: "event",
-         category: "Baby",
-         dateTime: "2021-01-12T18:30",
-         completed: false,
-      },
-   ],
+   userId: "60187a50af625cdb99dfb487", //! Will need to update!
+   items: [],
    newItem: {
       content: "",
       type: "general",
@@ -52,21 +30,28 @@ const getters = {
 };
 
 const actions = {
-   // initialize({ commit }) {
-   //    axios - 1. fetch allItems, 2. copy to displayItems
-   //    console.log("initialize");
-   // },
-   updateItem({ commit }, updatedItem) {
-      //axios stuff
-      commit("updateStateItems", updatedItem);
+   async initItems({ commit, state }) {
+      const res = await axios.get(`api/items/${state.userId}`);
+      commit("initUserItems", res.data);
    },
-   addItem({ commit }, newItem) {
-      // axios stuff
-      commit("addStateItem", newItem);
+   async addItem({ commit, state }, newItem) {
+      const res = await axios.post(`api/items/${state.userId}`, {
+         ...newItem,
+         userId: state.userId,
+      });
+
+      commit("addStateItem", res.data);
    },
-   deleteItem({ commit }, deleteId) {
-      // axios stuff
-      commit("deleteStateItem", deleteId);
+   async updateItem({ commit }, updatedItem) {
+      const res = await axios.put(`api/items/${updatedItem._id}`, updatedItem);
+      commit("updateStateItems", res.data);
+   },
+   async deleteItem({ commit }, deleteId) {
+      const res = await axios.delete(`api/items/${deleteId}`);
+      commit("deleteStateItem", res.data._id);
+   },
+   fillCategory({ commit }, category) {
+      commit("fillCategory", category);
    },
    setEditItem({ commit }, item) {
       commit("changeToEdit", item);
@@ -80,20 +65,8 @@ const actions = {
 };
 
 const mutations = {
-   updateStateItems(state, updatedItem) {
-      const itemIndex = state.items.findIndex(
-         (existingItem) => existingItem.id === updatedItem.id
-      );
-      state.items.splice(itemIndex, 1, updatedItem);
-
-      state.newItem = {
-         content: "",
-         type: "general",
-         category: "",
-         dateTime: new Date().toISOString().substring(0, 11) + "00:00",
-         completed: false,
-      };
-      state.createMode = "create";
+   initUserItems(state, userItems) {
+      state.items = userItems;
    },
    addStateItem(state, newItem) {
       state.items.push(newItem);
@@ -106,8 +79,26 @@ const mutations = {
          completed: false,
       };
    },
+   updateStateItems(state, updatedItem) {
+      const itemIndex = state.items.findIndex(
+         (existingItem) => existingItem._id === updatedItem._id
+      );
+      state.items.splice(itemIndex, 1, updatedItem);
+
+      state.newItem = {
+         content: "",
+         type: "general",
+         category: "",
+         dateTime: new Date().toISOString().substring(0, 11) + "00:00",
+         completed: false,
+      };
+      state.createMode = "create";
+   },
    deleteStateItem(state, deleteId) {
-      state.items = state.items.filter((item) => item.id !== deleteId);
+      state.items = state.items.filter((item) => item._id !== deleteId);
+   },
+   fillCategory(state, category) {
+      state.newItem.category = category;
    },
    changeToEdit(state, item) {
       state.newItem = item;

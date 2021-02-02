@@ -11,7 +11,16 @@
                 <label for="type-event"><h4>Event</h4></label>
             </div>
             <input type="text" placeholder="Item" v-model="wipItem.content" required/>
-            <input type="text" placeholder="Category (optional)" v-model="wipItem.category"/>
+            <input type="text" placeholder="Category (optional)" 
+                v-model="wipItem.category" 
+                class="category-input" 
+                @focusin ="showCategory = true"
+                @focusout="showCategory = false"
+            />
+            <div class="category-dropup scroll" :class="{'show':(showCategory === true)}">
+                <p v-for="category in categories" :key="category"
+                @click="fillCategory(category)">{{category}}</p>
+            </div>
             <input type="datetime-local" v-model="wipItem.dateTime" :min="wipItem.dateTime"/>
             <button type="submit"><h5>Submit</h5></button>
         </form>
@@ -26,11 +35,21 @@ export default {
     name: "CreateItem",
     components: {
     },
+    data() {
+        return {
+            showCategory: false
+        }
+    },
     computed: {
+        categories: {
+            get() {
+                return this.$store.getters.categories;
+            }
+        },
         wipItem: {
             get() {
                 return this.$store.getters.newItem;
-            }
+            },
         },
         createMode: {
             get() {
@@ -39,7 +58,7 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['addItem', 'updateItem']),
+        ...mapActions(['addItem', 'updateItem','fillCategory']),
         addingItem(e) {
             e.preventDefault();
 
@@ -51,7 +70,7 @@ export default {
         },
         title() {
             return [this.createMode.substring(0,1), this.createMode.substring(1)] ;
-        },
+        },   
     }
 }
 </script>
@@ -89,7 +108,6 @@ input {
   padding: 5rem 0;
 }
 
-
 .type-container {
     display: flex;
     border-radius: 5rem;
@@ -116,6 +134,11 @@ label {
 
 h4 {
     text-align: center;
+}
+
+.category-dropup.show,
+.category-dropup:hover {
+    display: block;
 }
 
 </style>

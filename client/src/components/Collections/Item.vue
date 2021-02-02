@@ -6,7 +6,7 @@
             <div class="btn-container">
                 <v-icon @click="toggleCompleted(item)" name="check" class="btn-icon" v-bind:class="{'completed':item.completed}"/>
                 <v-icon @click="setEditItem(item)" name="pen" class="btn-icon"/>
-                <v-icon @click="deleteItem(item.id)" name="trash" class="btn-icon"/>
+                <v-icon @click="deleteItem(item._id)" name="trash" class="btn-icon"/>
             </div>
         </div>
     </div>
@@ -88,12 +88,18 @@ p {
 
 .details-container {
     display: flex;
-    justify-content: space-between;
 }
 
 
+h5 {
+    width: 100%;
+}
+
 .btn-container {
     padding: 0 5rem;
+    width: 70rem;
+    display: flex;
+    justify-content: flex-end;
 }
 
 svg {

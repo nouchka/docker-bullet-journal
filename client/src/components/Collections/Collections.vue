@@ -45,6 +45,9 @@ export default {
     methods: {
         ...mapActions(['changeSort']),
     },
+    created() {
+        this.$store.dispatch("initItems");
+  }
 }
 </script>
 
