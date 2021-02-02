@@ -141,6 +141,7 @@ button {
 .flex-vertical {
   display: flex;
   flex-direction: column;
+  justify-content: center;
 }
 
 </style>

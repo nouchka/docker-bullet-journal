@@ -39,7 +39,6 @@ router.get("/:userId", async (req, res) => {
 });
 
 router.post("/:userId", async (req, res) => {
-   console.log(req.body);
    const item = new Item({
       ...req.body,
       userId: req.params.userId,

@@ -10,7 +10,7 @@ const state = {
       dateTime: new Date().toISOString().substring(0, 11) + "00:00",
       completed: false,
    },
-   createMode: "create",
+   itemMode: "create",
    filterConditions: {
       property: "",
       value: "",
@@ -21,7 +21,7 @@ const state = {
 const getters = {
    allItems: (state) => state.items,
    newItem: (state) => state.newItem,
-   getMode: (state) => state.createMode,
+   getItemMode: (state) => state.itemMode,
    categories: (state) => [
       ...new Set(state.items.map((item) => item.category)),
    ],
@@ -54,7 +54,7 @@ const actions = {
       commit("fillCategory", category);
    },
    setEditItem({ commit }, item) {
-      commit("changeToEdit", item);
+      commit("changeEditItem", item);
    },
    changeFilter({ commit }, condition) {
       commit("setFilter", condition);
@@ -92,7 +92,7 @@ const mutations = {
          dateTime: new Date().toISOString().substring(0, 11) + "00:00",
          completed: false,
       };
-      state.createMode = "create";
+      state.itemMode = "create";
    },
    deleteStateItem(state, deleteId) {
       state.items = state.items.filter((item) => item._id !== deleteId);
@@ -100,9 +100,9 @@ const mutations = {
    fillCategory(state, category) {
       state.newItem.category = category;
    },
-   changeToEdit(state, item) {
+   changeEditItem(state, item) {
       state.newItem = item;
-      state.createMode = "edit";
+      state.itemMode = "edit";
    },
    setFilter(state, condition) {
       state.filterConditions = condition;

@@ -1,5 +1,5 @@
 <template>
-   <div id="collection-options">
+   <div id="collection-options" class="footer-options">
             <div class="container">
                 <div class="option-container ">
                     <div class="option-btn option-category" @click="filtering('','')" title="Filter: Click to Clear">
@@ -80,15 +80,6 @@ h3 {
     margin: 0 auto;
 }
 
-
-#collection-options {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 5vh;
-    background: rgb(25, 81, 94, 0.2);
-}
-
 .outline {
     fill: none;
     border: 2rem solid rgb(25, 81, 94);
@@ -110,12 +101,6 @@ h3 {
     fill: white;
 }
 
-.option-container {
-    position: relative;
-    display: flex;
-    padding: 5rem 10rem;
-}
-
 .option-container:nth-child(1) {
     width: 60%;
 }
@@ -124,22 +109,7 @@ h3 {
     border-right: 1rem solid  rgb(25, 81, 94);    
 }
 
-.option-btn {
-    width: 30rem;
-    height: 30rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 5rem;
-}
 
-.btn-icon {
-    cursor: pointer;
-}
-
-.active {
-    fill: rgba(3, 190, 3);
-}
 
 .show-categories:hover .category-dropup,
 .category-dropup:hover {
@@ -152,13 +122,6 @@ h3 {
     bottom: 4vh;
     right: 0;
 }
-
-/* .category-dropup p{
-    padding: 3rem 5rem;
-    border-bottom: 1rem dashed rgb(25, 81, 94, 0.3);
-    cursor: pointer;
-} */
-
 
 
 </style>

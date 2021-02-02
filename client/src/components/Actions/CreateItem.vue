@@ -1,18 +1,18 @@
 <template>
-   <div id="create-item">
+   <div id="create-item" class="action-boxes">
        <div class="header"><h3><span>{{title()[0]}}</span>{{title()[1]}} <span>I</span>tem</h3></div>
        <form @submit="addingItem">
             <div class="type-container">
-                <input type="radio" id="type-general" value="general" v-model="wipItem.type">
+                <input type="radio" id="type-general" value="general" v-model="newItem.type">
                 <label for="type-general"><h4>General</h4></label>
-                <input type="radio" id="type-todo" value="todo" v-model="wipItem.type">
+                <input type="radio" id="type-todo" value="todo" v-model="newItem.type">
                 <label for="type-todo" class="center"><h4>To Do</h4></label>
-                <input type="radio" id="type-event" value="event" v-model="wipItem.type">
+                <input type="radio" id="type-event" value="event" v-model="newItem.type">
                 <label for="type-event"><h4>Event</h4></label>
             </div>
-            <input type="text" placeholder="Item" v-model="wipItem.content" required/>
+            <input type="text" placeholder="Item" v-model="newItem.content" required/>
             <input type="text" placeholder="Category (optional)" 
-                v-model="wipItem.category" 
+                v-model="newItem.category" 
                 class="category-input" 
                 @focusin ="showCategory = true"
                 @focusout="showCategory = false"
@@ -21,7 +21,7 @@
                 <p v-for="category in categories" :key="category"
                 @click="fillCategory(category)">{{category}}</p>
             </div>
-            <input type="datetime-local" v-model="wipItem.dateTime" :min="wipItem.dateTime"/>
+            <input type="datetime-local" v-model="newItem.dateTime" :min="today"/>
             <button type="submit"><h5>Submit</h5></button>
         </form>
 
@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import {mapActions} from "vuex"
+import {mapGetters, mapActions} from "vuex"
 
 export default {
     name: "CreateItem",
@@ -37,39 +37,26 @@ export default {
     },
     data() {
         return {
-            showCategory: false
+            showCategory: false,
+            today: new Date().toISOString().substring(0,11) + "00:00" ,
         }
     },
     computed: {
-        categories: {
-            get() {
-                return this.$store.getters.categories;
-            }
-        },
-        wipItem: {
-            get() {
-                return this.$store.getters.newItem;
-            },
-        },
-        createMode: {
-            get() {
-                return this.$store.getters.getMode;
-            }
-        }
+        ...mapGetters(['categories', 'newItem', 'getItemMode']),
     },
     methods: {
         ...mapActions(['addItem', 'updateItem','fillCategory']),
         addingItem(e) {
             e.preventDefault();
 
-            if (this.createMode === "create") {
-                this.addItem(this.wipItem);
+            if (this.getItemMode === "create") {
+                this.addItem(this.newItem);
             } else {
-                this.updateItem(this.wipItem);
+                this.updateItem(this.newItem);
             }
         },
         title() {
-            return [this.createMode.substring(0,1), this.createMode.substring(1)] ;
+            return [this.getItemMode.substring(0,1), this.getItemMode.substring(1)] ;
         },   
     }
 }
@@ -78,18 +65,16 @@ export default {
 <style scoped>
 
 #create-item {
-    position: relative;
-    border-radius: 10rem;
-    width: 100%;
-    height: 100%;
-    background: rgb(255, 255, 255, 0.7);
-    backdrop-filter: blue(10rem);
-    overflow: hidden;
+    min-height: 210rem;
 }
 
-.header {
-    height: 30rem;
-    padding: 5rem 10rem;
+h4 {
+    text-align: center;
+}
+
+label {
+    width: 100%;
+    cursor: pointer;
 }
 
 input[type="radio"]:checked + label {
@@ -100,14 +85,6 @@ input[type="radio"]:checked + label h4{
     color: white;
 }
 
-form {
-    padding: 10rem;
-}
-
-input {
-  padding: 5rem 0;
-}
-
 .type-container {
     display: flex;
     border-radius: 5rem;
@@ -116,24 +93,14 @@ input {
     margin-bottom: 10rem;
 }
 
-label {
-    width: 100%;
-    cursor: pointer;
-}
-
 .selected {
     background:  #19515e;
     color: white;
 }
 
-
 .center {
     border-left: 1rem solid #19515e;
     border-right: 1rem solid  #19515e;
-}
-
-h4 {
-    text-align: center;
 }
 
 .category-dropup.show,

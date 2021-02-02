@@ -15,7 +15,7 @@ app.use("/api/habits", habitsRoute);
 
 mongoose.connect(
    process.env.dbConnection,
-   { useNewUrlParser: true, useUnifiedTopology: true },
+   { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false },
    () => console.log("Connected to database.")
 );
 
