@@ -1,7 +1,6 @@
 import axios from "axios";
 
 const state = {
-   userId: "60187a50af625cdb99dfb487", //! Will need to update!
    items: [],
    newItem: {
       content: "",
@@ -30,14 +29,16 @@ const getters = {
 };
 
 const actions = {
-   async initItems({ commit, state }) {
-      const res = await axios.get(`api/items/${state.userId}`);
+   async initItems({ commit, rootState }) {
+      const activeUser = rootState.users.activeUser;
+      const res = await axios.get(`api/items/${activeUser._id}`);
       commit("initUserItems", res.data);
    },
-   async addItem({ commit, state }, newItem) {
-      const res = await axios.post(`api/items/${state.userId}`, {
+   async addItem({ commit, rootState }, newItem) {
+      const activeUser = rootState.users.activeUser;
+      const res = await axios.post(`api/items/${activeUser._id}`, {
          ...newItem,
-         userId: state.userId,
+         userId: activeUser._id,
       });
 
       commit("addStateItem", res.data);

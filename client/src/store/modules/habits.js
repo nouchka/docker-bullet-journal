@@ -1,7 +1,6 @@
 import axios from "axios";
 
 const state = {
-   userId: "60187a50af625cdb99dfb487", //! Will need to update!
    habits: [],
    displayMonth: [],
    newHabit: {
@@ -20,17 +19,19 @@ const getters = {
 };
 
 const actions = {
-   async initHabits({ commit, state, dispatch }) {
-      const res = await axios.get(`api/habits/${state.userId}`);
+   async initHabits({ commit, dispatch, rootState }) {
+      const activeUser = rootState.users.activeUser;
+      const res = await axios.get(`api/habits/${activeUser._id}`);
 
       await dispatch("setDateRange");
 
       commit("initUserHabits", res.data);
    },
-   async addHabit({ commit, state }, newHabit) {
-      const res = await axios.post(`api/habits/${state.userId}`, {
+   async addHabit({ commit, rootState }, newHabit) {
+      const activeUser = rootState.users.activeUser;
+      const res = await axios.post(`api/habits/${activeUser._id}`, {
          ...newHabit,
-         userId: state.userId,
+         userId: activeUser._id,
       });
 
       commit("addStateHabit", res.data);
@@ -63,7 +64,6 @@ const actions = {
       commit("changeEditHabit", habit);
    },
    setHabitMode({ commit }, mode) {
-      console.log(mode);
       commit("changeHabitMode", mode);
    },
 };

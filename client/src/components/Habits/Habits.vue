@@ -100,7 +100,7 @@ p {
     overflow-y: scroll;
     overflow-x: hidden;
     padding: 0 5rem 0 0;
-
+    border-bottom: 1rem solid rgb(25, 81, 94, 0.5);
 }
 
 .habit-container::-webkit-scrollbar,
@@ -163,6 +163,7 @@ p {
     display: flex;
     overflow-x: scroll;
     overflow-y: hidden;
+    max-width: 250rem;
 }
 
 .vertical-scroll {

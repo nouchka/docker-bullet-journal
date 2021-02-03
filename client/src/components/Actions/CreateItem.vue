@@ -21,7 +21,7 @@
                 <p v-for="category in categories" :key="category"
                 @click="fillCategory(category)">{{category}}</p>
             </div>
-            <input type="datetime-local" v-model="newItem.dateTime" :min="today"/>
+            <input type="datetime-local" v-model="newItem.dateTime"/>
             <button type="submit"><h5>Submit</h5></button>
         </form>
 
@@ -38,7 +38,6 @@ export default {
     data() {
         return {
             showCategory: false,
-            today: new Date().toISOString().substring(0,11) + "00:00" ,
         }
     },
     computed: {

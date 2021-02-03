@@ -9,9 +9,15 @@ const port = 5000;
 // Routes
 const itemsRoute = require("./items.js");
 const habitsRoute = require("./habits.js");
+const usersRoute = require("./users.js");
 
 app.use("/api/items", itemsRoute);
 app.use("/api/habits", habitsRoute);
+app.use("/api/users", usersRoute);
+
+app.get("/", (req, res) => {
+   res.send("Bullet Journal Backend");
+});
 
 mongoose.connect(
    process.env.dbConnection,

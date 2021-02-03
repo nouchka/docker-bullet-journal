@@ -1,17 +1,13 @@
 <template>
   <div id="app">
-    <Dashboard/>
+    <router-view />
   </div>
 </template>
 
 <script>
-import Dashboard from "./components/Dashboard"
 
 export default {
   name: 'App',
-  components: {
-    Dashboard
-  },
 }
 </script>
 
@@ -31,6 +27,7 @@ body {
   width: 100vw;
   height: 100vh;
   overflow: hidden;
+  background: linear-gradient(#c1dfc4 0%, #b7e2f0 100%);
 }
 
 h1, h3 {
@@ -102,46 +99,30 @@ button {
 
 }
 
-.item-icon {
-  cursor: pointer;
-}
-
-.panel {
+form {
     position: relative;
-    border-radius: 10rem;
-    width: 95%;
-    height: 95vh;
-    justify-self: center;
-    background: rgb(255, 255, 255, 0.3);
     padding: 10rem;
-}
-
-.header {
-   background: rgb(25, 81, 94);
-   height: 50rem;
-   padding: 10rem;
-   display: flex;
-   align-items: flex-end;
+    height: 85%;
 }
 
 #app {
+  position: relative;
   font: 16rem 'Raleway', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #19515e;
   padding: 2.5vh 2.5vw;
-  background: linear-gradient(#c1dfc4 0%, #b7e2f0 100%);
+
 }
 
-.flex {
-  display: flex;
-  align-items: baseline;
-}
-
-.flex-vertical {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+.action-boxes {
+    position: relative;
+    border-radius: 10rem;
+    width: 100%;
+    height: 100%;
+    background: rgb(255, 255, 255, 0.7);
+    backdrop-filter: blue(10rem);
+    overflow: hidden;
 }
 
 </style>

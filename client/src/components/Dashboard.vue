@@ -28,16 +28,37 @@ export default {
 
 #dashboard {
   position: relative;
-  border: 1rem solid blue;
   width: 95vw;
   height: 95vh;
   display: grid;
-  grid-template-columns: 3fr 5fr 1fr;
+  grid-template-columns: 4fr 7fr 2fr;
 }
 
 </style>
 
 <style>
+
+.item-icon {
+  cursor: pointer;
+}
+
+.panel {
+    position: relative;
+    border-radius: 10rem;
+    width: 95%;
+    height: 95vh;
+    justify-self: center;
+    background: rgb(255, 255, 255, 0.3);
+    padding: 10rem;
+}
+
+.header {
+   background: rgb(25, 81, 94);
+   height: 50rem;
+   padding: 10rem;
+   display: flex;
+   align-items: flex-end;
+}
 
 .group-container {
     position: relative;
