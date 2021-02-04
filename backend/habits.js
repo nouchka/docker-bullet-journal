@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const router = express.Router();
+// const checkToken = require('./checkToken')
 
 //Schema
 const HabitsSchema = mongoose.Schema({

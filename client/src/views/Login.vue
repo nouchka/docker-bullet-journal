@@ -4,10 +4,10 @@
     <div class="form-container">
         <div class="action-boxes">
             <div class="header"><h1>Login</h1></div>
-            <form @submit="loggingIn">
+            <form @submit.prevent="loggingIn">
                 <div>
-                    <label for="loginUsername"><h3>Username</h3></label>
-                    <input type="text" id="loginUsername" v-model="loginInfo.username" required>
+                    <label for="loginEmail"><h3>Email</h3></label>
+                    <input type="email" id="loginEmail" v-model="loginInfo.email" required>
                     <label for="loginPassword"><h3>Password</h3></label>
                     <input :type="showLoginPW ? 'text' : 'password'" id="loginPassword" v-model="loginInfo.password" required>
                     <h6 @click="showLoginPW = !showLoginPW" :class="{'active':showLoginPW}">Show password</h6>
@@ -17,10 +17,10 @@
         </div>
         <div class="action-boxes">
             <div class="header"><h1>Sign Up</h1></div>
-            <form @submit="signingUp">
+            <form @submit.prevent="signingUp">
                 <div>
-                    <label for="signUpUsername"><h3>Username</h3></label>
-                    <input type="text" id="signUpUsername" v-model="signUpInfo.username" required>
+                    <label for="signUpEmail"><h3>Email</h3></label>
+                    <input type="email" id="signUpEmail" v-model="signUpInfo.email" required>
                     <label for="signUpPassword"><h3>Password</h3></label>
                     <input :type="showSignUpPW ? 'text' : 'password'" id="signUpPassword" v-model="signUpInfo.password" placeholder="Minimum 5 characters" minLength="5" required>
                     <label for="signUpVerify"><h3>Re-enter Password</h3></label>
@@ -31,8 +31,8 @@
             </form>
         </div>
     </div>
-    <h4 :class="{'no-display': getErrorMessage}">This user does not exist. Please try again or sign up for a new account.</h4>
-    <h4 :class="{'no-display': matchingPW}">Passwords do not match. Please try again.</h4>
+    <h4>{{getErrorMessage}}</h4>
+    <h4 v-if="!matchingPW">The passwords entered do not match. Please try again.</h4>
     
     
   </div>
@@ -47,12 +47,12 @@ export default {
   data() {
       return {
         loginInfo: {
-          username: "",
+          email: "",
           password: ""
         },
         showLoginPW: false, 
         signUpInfo: {
-          username: "",
+          email: "",
           password: "",
           verifyPw: "",
         },
@@ -62,17 +62,18 @@ export default {
   },
   methods: {
       ...mapActions(['loginUser', 'signUpUser']),
-      loggingIn(e) {
-          e.preventDefault();
-          this.loginUser(this.loginInfo);
+      loggingIn() {
+          this.loginUser({
+              email: this.loginInfo.email,
+              password: this.loginInfo.password,
+          });
       },
-      signingUp(e){
-        e.preventDefault();
+      signingUp(){
         if (this.signUpInfo.password === this.signUpInfo.verifyPw) {
             this.matchingPW = true;
             this.signUpUser(
                 {
-                    username: this.signUpInfo.username,
+                    email: this.signUpInfo.email,
                     password: this.signUpInfo.password,
                 }
             );

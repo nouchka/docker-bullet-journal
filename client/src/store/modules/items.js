@@ -30,13 +30,15 @@ const getters = {
 
 const actions = {
    async initItems({ commit, rootState }) {
-      const activeUser = rootState.users.activeUser;
-      const res = await axios.get(`api/items/${activeUser._id}`);
-      commit("initUserItems", res.data);
+      const res = await axios.post("api/items/token", {
+         token: rootState.users.token,
+      });
+      const resItems = await axios.get(`api/items/${res.data}`);
+      commit("initUserItems", resItems.data);
    },
    async addItem({ commit, rootState }, newItem) {
       const activeUser = rootState.users.activeUser;
-      const res = await axios.post(`api/items/${activeUser._id}`, {
+      const res = await axios.post(`api/items/${activeUser}`, {
          ...newItem,
          userId: activeUser._id,
       });

@@ -20,16 +20,16 @@ const getters = {
 
 const actions = {
    async initHabits({ commit, dispatch, rootState }) {
-      const activeUser = rootState.users.activeUser;
-      const res = await axios.get(`api/habits/${activeUser._id}`);
-
+      const res = await axios.post("api/items/token", {
+         token: rootState.users.token,
+      });
+      const resHabits = await axios.get(`api/habits/${res.data}`);
+      commit("initUserHabits", resHabits.data);
       await dispatch("setDateRange");
-
-      commit("initUserHabits", res.data);
    },
    async addHabit({ commit, rootState }, newHabit) {
       const activeUser = rootState.users.activeUser;
-      const res = await axios.post(`api/habits/${activeUser._id}`, {
+      const res = await axios.post(`api/habits/${activeUser}`, {
          ...newHabit,
          userId: activeUser._id,
       });

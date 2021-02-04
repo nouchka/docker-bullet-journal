@@ -7,11 +7,21 @@ Vue.use(Router);
 
 export default new Router({
    routes: [
-      { path: "/", name: "login", component: Login },
+      {
+         path: "/",
+         name: "login",
+         component: Login,
+         meta: {
+            requiresVisitor: true,
+         },
+      },
       {
          path: "/user",
          name: "user",
          component: User,
+         meta: {
+            requiresAuth: true,
+         },
       },
    ],
 });

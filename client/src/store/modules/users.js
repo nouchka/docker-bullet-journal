@@ -2,55 +2,62 @@ import axios from "axios";
 import router from "../../router";
 
 const state = {
-   userId: "60187a50af625cdb99dfb487",
-   activeUser: {
-      _id: "test",
-      username: "test",
-      password: "test",
-   },
-   hideErrorMessage: true,
+   token: localStorage.getItem("auth-token") || "",
+   activeUser: "",
+   errorMessage: "",
 };
 
 const getters = {
-   getUser: (state) => state.activeUser,
-   getErrorMessage: (state) => state.hideErrorMessage,
+   getUser: (state) => state.activeUserId,
+   getErrorMessage: (state) => state.errorMessage,
+   getLoggedIn: (state) => state.token !== "",
 };
 
 const actions = {
+   async isLoggedIn({ commit, rootState }) {
+      const res = await axios.post("api/items/token", {
+         token: rootState.users.token,
+      });
+      commit("setActiveUser", res.data);
+   },
    async loginUser({ commit }, loginInfo) {
-      const { username, password } = loginInfo;
-      const res = await axios.get(`/api/users/${username}-${password}`);
-      if (res.data.length === 0) {
-         commit("setErrorMessage", false);
+      const res = await axios.post("/api/users/login", loginInfo);
+      console.log(res.data);
+      if (typeof res.data === "string") {
+         commit("setErrorMessage", res.data);
       } else {
-         commit("setActiveUser", res.data[0]);
-         commit("setErrorMessage", true);
+         localStorage.setItem("auth-token", res.data.token);
+         commit("setToken", res.data.token);
+         commit("setActiveUser", res.data.user);
+         commit("setErrorMessage", "");
          router.push("/user");
       }
    },
    async signUpUser({ commit }, signUpInfo) {
-      const res = await axios.post("/api/users", signUpInfo);
-      commit("setActiveUser", res.data);
+      const res = await axios.post("/api/users/signup", signUpInfo);
+      localStorage.setItem("auth-token", res.data.token);
+      commit("setToken", res.data.token);
+      commit("setActiveUser", res.data.user);
       router.push("/user");
    },
-
-   // ! STILL NEED TO EDIT USER
-   async editUser({ commit }, updatedInfo) {
-      const res = await axios.post(
-         `/api/users/${updatedInfo._id}`,
-         updatedInfo
-      );
-      commit("setActiveUser", res.data);
-      return "/user";
+   logUserOut({ commit }) {
+      console.log("entered");
+      localStorage.removeItem("auth-token");
+      commit("setToken", "");
+      commit("setActiveUser", "");
+      router.push("/");
    },
 };
 
 const mutations = {
    setActiveUser(state, user) {
-      state.activeUser = user;
+      state.activeUser = user._id;
    },
-   setErrorMessage(state, hide) {
-      state.hideErrorMessage = hide;
+   setErrorMessage(state, message) {
+      state.errorMessage = message;
+   },
+   setToken(state, token) {
+      state.token = token;
    },
 };
 

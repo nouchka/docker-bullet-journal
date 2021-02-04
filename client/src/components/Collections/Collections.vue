@@ -40,7 +40,7 @@ export default {
                 items = items.filter((item) => item[property] === value);
             }
             return items;
-            }   
+            },   
     },
     methods: {
         ...mapActions(['changeSort']),
