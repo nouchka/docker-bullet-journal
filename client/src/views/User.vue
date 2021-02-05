@@ -80,13 +80,13 @@ export default {
     display: none;
   }
 
-  @media only screen and (max-width: 1200px) {
+  @media only screen and (max-width: 1400px) {
     .action-btn {
       display: block;
     }
   }
 
-  @media only screen and (max-width: 850px) {
+  @media only screen and (max-width: 1000px), (max-height: 700px) {
 
     #user {
       padding: 20rem 2.5vw 10rem;

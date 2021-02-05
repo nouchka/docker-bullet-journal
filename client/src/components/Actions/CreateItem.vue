@@ -91,6 +91,7 @@ export default {
 
 #create-item {
     min-height: 210rem;
+    margin-bottom: 10rem;
 }
 
 h4 {
@@ -110,7 +111,6 @@ input[type="radio"]:checked + label h4{
     color: white;
 }
 
-
 .type-container {
     display: flex;
     border-radius: 5rem;
@@ -120,8 +120,8 @@ input[type="radio"]:checked + label h4{
 }
 
 .dateTime{
-    display: flex;
-    justify-content: space-around;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200rem, 1fr));
 }
 
 input[type="date"] {
@@ -129,9 +129,8 @@ input[type="date"] {
 }
 
 input[type="time"] {
-    border-left: 1rem solid  rgb(25, 81, 94, 0.3);
+    /* border-left: 1rem solid  rgb(25, 81, 94, 0.3); */
     padding-left: 10rem;
-    width: 80%;
 }
 
 .selected {

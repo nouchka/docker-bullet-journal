@@ -78,13 +78,15 @@ export default {
       },
       signingUp(){
         if (this.signUpInfo.password === this.signUpInfo.verifyPw) {
+            this.matchingPW = true;
+            
             this.signUpUser(
                 {
                     email: this.signUpInfo.email,
                     password: this.signUpInfo.password,
                 }
             );
-            this.matchingPW = true;
+            
         } else {
             this.matchingPW = false;
         }

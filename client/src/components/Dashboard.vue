@@ -34,13 +34,13 @@ export default {
   grid-template-columns: 4fr 7fr 2fr;
 }
 
-@media only screen and (max-width: 1200px) {
+@media only screen and (max-width: 1400px) {
   #dashboard{ 
   grid-template-columns: 7fr 3fr;
   }
 }
 
-@media only screen and (max-width: 850px) {
+@media only screen and (max-width: 1000px), (max-height: 700px) {
     #dashboard {
       display: inline-block;
       height: 95vh;
@@ -166,7 +166,7 @@ svg.active {
 }
 
 
-@media only screen and (max-width: 850px) {
+@media only screen and (max-width: 1000px), (max-height: 700px) {
     .panel {
       display: inline-block;
       position: absolute;

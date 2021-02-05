@@ -1,6 +1,12 @@
 <template>
    <div id="action-panel" class="panel" :class="{'show':showWhichPanel === 'action'}">
        <div class="image-container">
+            <div class="image-box">
+                <MorningIcon class="morning-icon" />
+            </div>
+            <div class='date-box'>
+                <h2>{{today}}</h2>
+            </div>
        </div>
        <CreateItem />
        <CreateHabit />
@@ -10,6 +16,7 @@
 <script>
 import CreateItem from "./CreateItem"
 import CreateHabit from "./CreateHabit"
+import MorningIcon from "./MorningIcon"
 import {mapGetters, mapActions} from "vuex"
 
 export default {
@@ -17,11 +24,17 @@ export default {
     components: {
         CreateItem,
         CreateHabit,
+        MorningIcon,
+    },
+    data () {
+        return {
+            today: new Intl.DateTimeFormat('en-us', {weekday: "long", year: "numeric", month: "long", day: "numeric"}).format( new Date)
+        }
     },
     computed: {
-        ...mapGetters(["showWhichPanel", "getMobileMode"]),    
+        ...mapGetters(["showWhichPanel", "getMobileMode"]),   
     },
-    methods: mapActions(["changePanel"])
+    methods: mapActions(["changePanel"]),
 }
 </script>
 
@@ -29,13 +42,47 @@ export default {
 
 #action-panel {
     display: grid;
-    grid-template-rows: 5fr 4fr 3fr;
+    grid-template-rows: 3fr 6fr 4fr;
     grid-gap: 10rem;
+    overflow: hidden;
+}
+
+h2 {
+    font-size: 20rem;
+    font-weight: 500;
+}
+
+.image-container {
+    position: relative;
+    border-radius: 10rem;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.morning-icon {
+    height: 100%;
+}
+
+.image-box {
+    position: relative;
+    height: 100%;
+    border-radius: 10%;
+    min-width: fit-content;
+    overflow: hidden;
+}
+
+.date-box {
+    margin-top: 10rem;
+    padding-left: 10rem;
 }
 
 
 
-@media only screen and (max-width: 1200px) {
+
+@media only screen and (max-width: 1400px) {
     #action-panel {
         position: absolute;
         z-index: 10;
@@ -45,14 +92,31 @@ export default {
         padding: 15rem;
         grid-gap: 20rem;
         grid-template-rows: none;
-        grid-template-columns: repeat(auto-fit, minmax(382rem, 1fr));
+        grid-template-columns: 200rem 1fr 1fr;
         backdrop-filter: blur(10rem);
         transition: all 1s;
         box-shadow: 0 -3rem 10rem 5rem rgb(25, 81, 94, 0.2);
     }
 
     .image-container {
-        display: none;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .image-box {
+        height: 70%;
+    }
+
+    h2 {
+        font-size: 18rem;
+    }
+
+    .morning-icon {
+        height: 100%;
+    }
+
+    .date-box {
+        width: 100%;
     }
 
     #action-panel.show {
@@ -61,18 +125,33 @@ export default {
 
 }
 
-@media only screen and (max-width: 850px) {
+@media only screen and (max-width: 1000px), (max-height: 700px) {
 
     #action-panel {
          width: 95%;
          height: 100%;
          padding: 10rem;
+         grid-template-rows: 3fr 6fr 4fr;
          grid-template-columns: none;
     }
 
-    #action-panel.show{
-        bottom: 20%;
+    .image-container {
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
     }
+
+    .image-box {
+        height: 100%;
+    }
+
+    h2 {
+        font-size: calc(min(20rem, 4.4vw));
+    }
+
+    .date-box {
+        padding-left: 10rem;
+    } 
 
 }
 
