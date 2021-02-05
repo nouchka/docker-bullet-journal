@@ -1,29 +1,105 @@
 <template>
   <div id="user">
-    <v-icon @click="logUserOut()" name="sign-out-alt" flip="horizontal" class="btn-icon logout" title="Log Out"/>
+    <div class="menu">
+      <v-icon
+        @click="logUserOut()"
+        name="sign-out-alt" 
+        flip="horizontal" 
+        class="btn-icon logout"
+        title="Log Out"/>
+      <v-icon 
+      @click="changingPanel('action')" 
+        name="plus" 
+        class="btn-icon panel-btn action-btn"  
+        :class="{'active':showWhichPanel === 'action'}" 
+        title="Create/Edit"/>
+      <v-icon 
+        @click="changingPanel('collections')" 
+        name="list" 
+        class="btn-icon panel-btn collection-btn" 
+        :class="{'active':showWhichPanel === 'collections'}" 
+        title="Collections"/>
+      <v-icon
+        @click="changingPanel('habits')"
+        name="leaf" 
+        class="btn-icon panel-btn habits-btn" 
+        :class="{'active':showWhichPanel === 'habits'}" 
+        title="Habits"/>
+    </div>
     <Dashboard/>
   </div>
 </template>
 
 <script>
 import Dashboard from "../components/Dashboard"
-import {mapActions} from 'vuex'
+import {mapGetters, mapActions} from 'vuex'
+
 
 export default {
   name: 'User',
   components: {
     Dashboard
   },
-  methods:  mapActions(['logUserOut'])
-  
+  computed: mapGetters(["showWhichPanel"]),
+  methods: { 
+    ...mapActions(['logUserOut', 'changePanel']),
+    changingPanel(panel) {
+      if (this.showWhichPanel !== panel)  {
+        this.changePanel(panel);
+      } else {
+        this.changePanel("collections");
+      }
+    }
+  },  
 }
 </script>
 
 <style scoped>
-  .logout {
-    position: absolute;
-    top: 10rem;
-    left: 10rem;
+
+  #user {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    padding: 2.5vh 2.5vw;
   }
+
+  .btn-icon {
+    margin: 0 10rem 10rem 0;
+  }
+
+  .menu {
+    position: absolute;   
+    top: 0;
+    left: 0; 
+    display: flex;
+    flex-direction: column;
+    padding: 10rem;
+  }
+
+  .panel-btn {
+    display: none;
+  }
+
+  @media only screen and (max-width: 1200px) {
+    .action-btn {
+      display: block;
+    }
+  }
+
+  @media only screen and (max-width: 850px) {
+
+    #user {
+      padding: 20rem 2.5vw 10rem;
+    }
+    .menu {
+      flex-direction: row;
+    }
+
+    .panel-btn {
+      display: block;
+    }
+  }
+
+
 </style>  
 

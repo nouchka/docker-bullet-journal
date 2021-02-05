@@ -109,7 +109,9 @@ h3 {
     border-right: 1rem solid  rgb(25, 81, 94);    
 }
 
-
+.show-categories {
+    position: relative;
+}
 
 .show-categories:hover .category-dropup,
 .category-dropup:hover {
@@ -119,8 +121,8 @@ h3 {
 .category-dropup {
     width: 200rem;
     position: absolute;
-    bottom: 4vh;
-    right: 0;
+    top: -80rem;
+    left: -80rem;
 }
 
 

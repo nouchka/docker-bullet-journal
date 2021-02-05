@@ -2,10 +2,10 @@
    <div id="habits" class="group-container">
         <div class="header"><h1><span>H</span>abits</h1></div>
         <div class="habit-container">
-            <div class="vertical-scroll">
+            <div class="wrapper">
                 <div class="habit-format dates-container">
                     <div class="habit-content center filler"></div>
-                    <div v-for="date in displayMonth" :key="date" class="indicator-box center">
+                    <div v-for="date in displayMonth" :key="date" class="indicator-box center" :class="{'today':date === today}">
                         <p class='month-date'>{{date}}</p>
                     </div>
                 </div>
@@ -14,11 +14,12 @@
                         <div class="habit-content center" :title="habit.content">
                             <p @click="execute(habit)" :class="{'animate':getHabitMode !== 'create'}">{{habit.abbr}}</p>
                         </div>
-                        <div v-for="date in displayMonth" :key="date" class="indicator-box center" >
-                            <div class="indicator" :class="{'completed':habit.datesCompleted.includes(date)}"
-                            @click="toggleHabit(date, habit)"
-                            >
-                            </div>
+                        <div v-for="date in displayMonth" :key="date" class="indicator-box center" :class="{'today':date === today}" >
+                            <v-icon 
+                                name="leaf" 
+                                class="btn-icon indicator-icon" 
+                                :class="{'completed':habit.datesCompleted.includes(date)}"
+                            @click="toggleHabit(date, habit)"/>
                         </div>
                     </div>
                 </div>
@@ -40,8 +41,13 @@ export default {
     computed: {
         ...mapGetters(['allHabits','displayMonth', 'getHabitMode'])
     },
+    data() {
+        return {
+            today: "" 
+        }
+    },
     methods: {
-        ...mapActions(["setDateRange", "updateHabit", "setEditHabit", "deleteHabit"]),
+        ...mapActions(["setDateRange", "updateHabit", "setEditHabit", "deleteHabit", 'changePanel']),
         toggleHabit(date, habit) {
             let updatedDates = [];
             if (habit.datesCompleted.includes(date)) {
@@ -58,14 +64,18 @@ export default {
         execute(habit) {
             if (this.getHabitMode === "edit") {
                 this.setEditHabit(habit);
+                this.changePanel('action');
             } else if (this.getHabitMode === "delete") {
                 this.deleteHabit(habit._id);
             }
         }
     },
     created() {
-        this.$store.dispatch("initHabits");
-    }
+        this.$store.dispatch("initHabits")
+        const current = new Intl.DateTimeFormat('en-GB').format( new Date()).split("/");
+        this.today= `${current[2]}-${current[1]}-${current[0]}`;
+        }
+    
 }
 
 </script>
@@ -96,14 +106,17 @@ p {
 
 .habit-container {
     position: relative;
-    height: 80vh;
-    overflow-y: scroll;
-    overflow-x: hidden;
-    padding: 0 5rem 0 0;
+    height: 100%;
+    padding: 0 5rem 20rem 0;
     border-bottom: 1rem solid rgb(25, 81, 94, 0.5);
 }
 
-.habit-container::-webkit-scrollbar,
+.wrapper {
+    display: flex;
+    height: 84%;
+    scrollbar-width: none;
+}
+
 .tracker::-webkit-scrollbar{
     display: none;
 }
@@ -111,8 +124,17 @@ p {
 .habit-format {
      border-right: 1rem solid rgb(25, 81, 94, 0.5);
      padding: 0 0 0rem;
-     min-height: 85vh;
+     height: fit-content;
 }
+
+.tracker {
+    display: flex;
+    overflow-x: scroll;
+    max-width: 250rem;
+    height: fit-content;
+    scrollbar-width: none;
+}
+
 
 .habit-content {
    width: 25rem;
@@ -137,39 +159,25 @@ p {
 }
 
 .indicator-box {
-    border-bottom: 1rem solid rgb(25, 81, 94, 0.5);
     min-height: 20rem;
-    
 }
 
-.indicator {
-    width: 11rem;
-    height: 11rem;
-    border: 1rem solid rgb(25, 81, 94, 0.5);
-    border-radius: 50%;
-    cursor: pointer;
+.today {
+    background:  rgb(25, 81, 94, 0.1);
 }
 
-.indicator.completed {
-    background:  rgb(25, 81, 94, 0.7);
+.indicator-icon {
+    width: 12rem;
+    height: 12rem;
+    fill: rgb(25, 81, 94, 0.2);
 }
 
-.dates-container {
-    overflow: hidden;
-
+.indicator-icon.completed {
+    fill: rgb(25, 81, 94, 0.7);
 }
 
-.tracker {
-    display: flex;
-    overflow-x: scroll;
-    overflow-y: hidden;
-    max-width: 250rem;
-}
 
-.vertical-scroll {
-    display: flex;
-    /* height: 85vh; */
-}
+
 
 
 </style>

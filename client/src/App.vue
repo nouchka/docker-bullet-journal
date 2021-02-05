@@ -21,13 +21,14 @@ export default {
 
 html {
   font-size: 6.25%;
+  background: linear-gradient(#c1dfc4, #b7e2f0);
+  overflow: hidden;
 }
 
 body {
   width: 100vw;
   height: 100vh;
-  overflow: hidden;
-  background: linear-gradient(#c1dfc4 0%, #b7e2f0 100%);
+   overflow: hidden;
 }
 
 h1, h3 {
@@ -39,11 +40,11 @@ h1, h3 {
 
 h1 {
   letter-spacing: 10rem;
-  font-size: 20rem;
+  font-size: calc(min(20rem, 6vw));
 }
 
 h1 span {
-  font-size: 25rem;
+  font-size: calc(min(25rem, 7vw));
 }
 
 h2 {
@@ -90,8 +91,12 @@ input[type='radio'] {
   display: none;
 }
 
+input:invalid {
+    box-shadow: none;
+}
+
 button {
-  background:  rgb(25, 81, 94, 0.7);
+  background:  rgb(82, 129, 141);
   color: white;
   padding: 5rem;
   margin: 10rem 0;
@@ -111,8 +116,6 @@ form {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #19515e;
-  padding: 2.5vh 2.5vw;
-
 }
 
 .action-boxes {
@@ -121,8 +124,8 @@ form {
     width: 100%;
     height: 100%;
     background: rgb(255, 255, 255, 0.7);
-    backdrop-filter: blue(10rem);
-    overflow: hidden;
+    backdrop-filter: blur(10rem);
 }
+
 
 </style>

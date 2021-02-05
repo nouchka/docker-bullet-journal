@@ -1,8 +1,13 @@
 <template>
   <div id="login">
     <h1 class="greeting"><span>W</span>elcome</h1>
+    <div class="entry-options">
+        <h3 @click="entryLogin = true">Login</h3>
+        <p>/</p>
+        <h3 @click="entryLogin = false">Sign Up</h3>
+    </div>
     <div class="form-container">
-        <div class="action-boxes">
+        <div class="action-boxes" :class="{'front':entryLogin}">
             <div class="header"><h1>Login</h1></div>
             <form @submit.prevent="loggingIn">
                 <div>
@@ -15,7 +20,7 @@
                 <button type="submit">Login</button>
             </form>
         </div>
-        <div class="action-boxes">
+        <div class="action-boxes" :class="{'front':!entryLogin}">
             <div class="header"><h1>Sign Up</h1></div>
             <form @submit.prevent="signingUp">
                 <div>
@@ -31,8 +36,8 @@
             </form>
         </div>
     </div>
-    <h4>{{getErrorMessage}}</h4>
-    <h4 v-if="!matchingPW">The passwords entered do not match. Please try again.</h4>
+    <h4 class="message">{{getErrorMessage}}</h4>
+    <h4 class="message" v-if="!matchingPW">The passwords entered do not match. Please try again.</h4>
     
     
   </div>
@@ -43,7 +48,9 @@ import {mapGetters,mapActions} from 'vuex'
 
 export default {
   name: 'Login',
-  computed: mapGetters(['getErrorMessage']),
+  computed: {
+      ...mapGetters(['getErrorMessage'])
+  },
   data() {
       return {
         loginInfo: {
@@ -58,6 +65,7 @@ export default {
         },
         showSignUpPW: false,
         matchingPW: true,
+        entryLogin: true,
       } 
   },
   methods: {
@@ -70,17 +78,17 @@ export default {
       },
       signingUp(){
         if (this.signUpInfo.password === this.signUpInfo.verifyPw) {
-            this.matchingPW = true;
             this.signUpUser(
                 {
                     email: this.signUpInfo.email,
                     password: this.signUpInfo.password,
                 }
             );
+            this.matchingPW = true;
         } else {
             this.matchingPW = false;
         }
-      }
+      },
   }
 }
 </script>
@@ -91,15 +99,13 @@ h1 {
     margin: 0 auto;
 }
 
-
-
 h3 {
     color:  rgb(25, 81, 94);
     font-weight: 500;
 }
 
 input {
-    margin: 5rem 0 15rem;
+    margin: 5rem 0 10rem;
 }
 
 h6 {
@@ -121,6 +127,7 @@ form {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    height: 80%;
 }
 
 #login {
@@ -129,6 +136,7 @@ form {
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding-top: 5%; 
 }
 
 .greeting {
@@ -140,26 +148,82 @@ form {
     font-size: 38rem;
 }
 
+.entry-options {
+    display: none;
+}
+
 .action-boxes {
     width: 90%;
     max-width: 400rem;
-    height: 330rem;
-
+    height: 350rem;
+    background: white;
 }
 
 .form-container {
     position: relative;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(350rem, 1fr));
-    width: 70%;
+    width: 100%;
     grid-gap: 20rem;
     justify-items: center;
-    /* border: 1rem solid blue; */
-    margin: 2%;
+    padding: 5% 0;
 }
 
 .no-display {
     display: none;
+}
+
+.message {
+    width: 80%;
+    text-align: center;
+}
+
+@media only screen and (min-width: 700px) {
+    .form-container {
+      width: 60%;
+      height: 500rem;
+    }
+}
+
+@media only screen and (max-width: 700px), (max-height: 850px) {
+    .greeting {
+        font-size: 20rem;
+    }
+
+    .greeting span {
+        font-size: 30rem;
+    }
+
+    h3 {
+        font-size: 12rem;
+    }
+
+    .entry-options {
+        display: flex;
+        width: 50%;
+        max-width: 300rem;
+        justify-content: space-between;
+        align-items: center;
+        margin: 20rem 0;
+    }
+
+    .entry-options h3 {
+        cursor: pointer;
+    }
+
+    .form-container {
+      height: 400rem;
+    }
+
+    .action-boxes {
+        position: absolute;
+        width: 80%;
+    }
+
+    .front {
+        z-index: 10;
+    }
+
 }
 
 </style>

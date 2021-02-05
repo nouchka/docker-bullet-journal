@@ -6,7 +6,7 @@ const state = {
       content: "",
       type: "general",
       category: "",
-      dateTime: new Date().toISOString().substring(0, 11) + "00:00",
+      dateTime: "",
       completed: false,
    },
    itemMode: "create",
@@ -21,16 +21,17 @@ const getters = {
    allItems: (state) => state.items,
    newItem: (state) => state.newItem,
    getItemMode: (state) => state.itemMode,
-   categories: (state) => [
-      ...new Set(state.items.map((item) => item.category)),
-   ],
+   categories: (state) => {
+      const allCategories = state.items.map((item) => item.category);
+      return [...new Set(allCategories.filter((category) => category !== ""))];
+   },
    filterConditions: (state) => state.filterConditions,
    sortConditions: (state) => state.sortConditions,
 };
 
 const actions = {
    async initItems({ commit, rootState }) {
-      const res = await axios.post("api/items/token", {
+      const res = await axios.post("api/users/token", {
          token: rootState.users.token,
       });
       const resItems = await axios.get(`api/items/${res.data}`);
@@ -78,7 +79,7 @@ const mutations = {
          content: "",
          type: "general",
          category: "",
-         dateTime: new Date().toISOString().substring(0, 11) + "00:00",
+         dateTime: "",
          completed: false,
       };
    },
@@ -92,7 +93,7 @@ const mutations = {
          content: "",
          type: "general",
          category: "",
-         dateTime: new Date().toISOString().substring(0, 11) + "00:00",
+         dateTime: "",
          completed: false,
       };
       state.itemMode = "create";

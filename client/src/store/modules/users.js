@@ -14,15 +14,11 @@ const getters = {
 };
 
 const actions = {
-   async isLoggedIn({ commit, rootState }) {
-      const res = await axios.post("api/items/token", {
-         token: rootState.users.token,
-      });
-      commit("setActiveUser", res.data);
+   async changeActiveUser({ commit }, user) {
+      commit("setActiveUser", user);
    },
    async loginUser({ commit }, loginInfo) {
       const res = await axios.post("/api/users/login", loginInfo);
-      console.log(res.data);
       if (typeof res.data === "string") {
          commit("setErrorMessage", res.data);
       } else {
@@ -35,13 +31,17 @@ const actions = {
    },
    async signUpUser({ commit }, signUpInfo) {
       const res = await axios.post("/api/users/signup", signUpInfo);
-      localStorage.setItem("auth-token", res.data.token);
-      commit("setToken", res.data.token);
-      commit("setActiveUser", res.data.user);
-      router.push("/user");
+      if (typeof res.data === "string") {
+         commit("setErrorMessage", res.data);
+      } else {
+         localStorage.setItem("auth-token", res.data.token);
+         commit("setToken", res.data.token);
+         commit("setActiveUser", res.data.user);
+         commit("setErrorMessage", "");
+         router.push("/user");
+      }
    },
    logUserOut({ commit }) {
-      console.log("entered");
       localStorage.removeItem("auth-token");
       commit("setToken", "");
       commit("setActiveUser", "");

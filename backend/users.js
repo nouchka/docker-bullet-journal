@@ -3,7 +3,6 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const router = express.Router();
-// const checkToken = require("checkToken");
 require("dotenv");
 
 const UsersSchema = mongoose.Schema({
@@ -20,6 +19,16 @@ const UsersSchema = mongoose.Schema({
 const User = mongoose.model("User", UsersSchema);
 
 // Routes
+
+router.post("/token", async (req, res) => {
+   try {
+      const verify = jwt.verify(req.body.token, process.env.token);
+      const userId = verify._id;
+      res.json(userId);
+   } catch (err) {
+      res.json("error");
+   }
+});
 
 router.post("/login", async (req, res) => {
    const { email, password } = req.body;
@@ -48,30 +57,28 @@ router.post("/login", async (req, res) => {
 });
 
 router.post("/signup", async (req, res) => {
-   // const user = new User(req.body);
-
-   const userExist = await User.findOne({ email: req.body.email });
-   if (userExist) {
-      return res.status(400).send("User with this email already exists");
-   }
-
-   const salt = await bcrypt.genSalt(10);
-   const hashPw = await bcrypt.hash(req.body.password, salt);
-
-   const user = new User({
-      email: req.body.email,
-      password: hashPw,
-   });
-
+   const { email, password } = req.body;
    try {
-      const newUser = await user.save();
-      const token = jwt.sign({ _id: user._id }, process.env.token);
+      const userExist = await User.findOne({ email: email });
+      if (userExist !== null) {
+         res.json("A user with this email already exists. Please try again.");
+      } else {
+         const salt = await bcrypt.genSalt(10);
+         const hashPw = await bcrypt.hash(password, salt);
 
-      res.header("auth-token", token);
-      res.json({
-         token: token,
-         user: { _id: newUser._id, email: newUser.email },
-      });
+         const user = new User({
+            email: email,
+            password: hashPw,
+         });
+         const newUser = await user.save();
+         const token = jwt.sign({ _id: user._id }, process.env.token);
+
+         res.header("auth-token", token);
+         res.json({
+            token: token,
+            user: { _id: newUser._id, email: newUser.email },
+         });
+      }
    } catch (err) {
       console.log(err);
    }

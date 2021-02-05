@@ -1,8 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
-const checkToken = require("./checkToken");
-const jwt = require("jsonwebtoken");
 
 // Schema
 const ItemsSchema = mongoose.Schema({
@@ -30,22 +28,9 @@ const Item = mongoose.model("Item", ItemsSchema);
 
 // Routes
 
-router.post("/token", async (req, res) => {
-   console.log(req.body);
-   try {
-      const verify = jwt.verify(req.body.token, process.env.token);
-      console.log(verify);
-      const userId = verify._id;
-      res.json(userId);
-   } catch (err) {
-      res.json("error");
-   }
-});
-
 router.get("/:userId", async (req, res) => {
    try {
       const userItems = await Item.find({ userId: req.params.userId });
-      console.log(userItems);
       res.json(userItems);
    } catch (err) {
       console.log(err);

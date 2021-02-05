@@ -20,11 +20,13 @@ const getters = {
 
 const actions = {
    async initHabits({ commit, dispatch, rootState }) {
-      const res = await axios.post("api/items/token", {
+      const res = await axios.post("api/users/token", {
          token: rootState.users.token,
       });
+      dispatch("changeActiveUser", { _id: res.data }, { root: true });
       const resHabits = await axios.get(`api/habits/${res.data}`);
       commit("initUserHabits", resHabits.data);
+
       await dispatch("setDateRange");
    },
    async addHabit({ commit, rootState }, newHabit) {
@@ -47,11 +49,16 @@ const actions = {
       const res = await axios.delete(`api/habits/${deleteId}`);
       commit("deleteStateHabit", res.data._id);
    },
-   async setDateRange({ commit, state }, year, month) {
+   async setDateRange({ commit, state }, currentDate) {
+      let [year, month] = [0, 0];
+
       if (state.displayMonth.length === 0) {
          [year, month] = new Date().toISOString().split("-", 2);
+      } else {
+         [year, month] = currentDate;
       }
 
+      console.log(year, month);
       const lastDay = new Date(year, month, 0).getDate() + 1;
       const dateRange = await [...Array(lastDay).keys()];
       dateRange.shift();

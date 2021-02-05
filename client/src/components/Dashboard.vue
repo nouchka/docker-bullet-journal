@@ -28,19 +28,30 @@ export default {
 
 #dashboard {
   position: relative;
-  width: 95vw;
-  height: 95vh;
+  width: 100%;
+  height: 100%;
   display: grid;
   grid-template-columns: 4fr 7fr 2fr;
 }
 
+@media only screen and (max-width: 1200px) {
+  #dashboard{ 
+  grid-template-columns: 7fr 3fr;
+  }
+}
+
+@media only screen and (max-width: 850px) {
+    #dashboard {
+      display: inline-block;
+      height: 95vh;
+      position: absolute;
+      top: 35rem;
+    }
+  }
+
 </style>
 
 <style>
-
-.item-icon {
-  cursor: pointer;
-}
 
 .panel {
     position: relative;
@@ -50,6 +61,7 @@ export default {
     justify-self: center;
     background: rgb(255, 255, 255, 0.3);
     padding: 10rem;
+    backdrop-filter: blur(10rem);
 }
 
 .header {
@@ -58,6 +70,7 @@ export default {
    padding: 10rem;
    display: flex;
    align-items: flex-end;
+   border-radius: 10rem 10rem 0 0;
 }
 
 .group-container {
@@ -69,32 +82,17 @@ export default {
     overflow: hidden;
 }
 
+/* Drop-up/Drop down Menu */
+
 .category-dropup {
     background: rgb(255, 255, 255);
+    position: relative;
+    z-index: 10;
     display: none;
-    height: 100rem;
+    max-width: 85vw;
+    max-height: 80rem;
     border: 1rem dashed rgb(25, 81, 94, 0.3);
     overflow-y: scroll;
-}
-
-.scroll::-webkit-scrollbar {
-  width: 10rem;
-  height: 10rem;
-}
-
-/* Track */
-.scroll::-webkit-scrollbar-track {
-  background: rgb(25, 81, 94, 0.5);
-}
-
-/* Handle */
-.scroll::-webkit-scrollbar-thumb {
-  background: rgb(25, 81, 94);
-}
-
-/* Handle on hover */
-.scroll::-webkit-scrollbar-thumb:hover {
-  background: rgb(25, 81, 94,0.6);
 }
 
 .category-dropup p{
@@ -103,9 +101,38 @@ export default {
     cursor: pointer;
 }
 
+.wrapper {
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
 
+.wrapper::-webkit-scrollbar {
+    display: none;
+}
 
-/* Footer Options */
+.scroll {
+  scrollbar-color: rgb(25, 81, 94)  rgb(25, 81, 94, 0.5);
+  scrollbar-width: thin;
+}
+
+.scroll::-webkit-scrollbar {
+  width: 10rem;
+  height: 10rem;
+}
+
+.scroll::-webkit-scrollbar-track {
+  background: rgb(25, 81, 94, 0.5);
+}
+
+.scroll::-webkit-scrollbar-thumb {
+  background: rgb(25, 81, 94);
+}
+
+.scroll::-webkit-scrollbar-thumb:hover {
+  background: rgb(25, 81, 94,0.6);
+}
+
+/* Footer options */
 
 .footer-options {
     position: absolute;
@@ -136,6 +163,33 @@ export default {
 
 svg.active {
     fill: rgba(3, 190, 3);
+}
+
+
+@media only screen and (max-width: 850px) {
+    .panel {
+      display: inline-block;
+      position: absolute;
+      top: 100vh;
+      transition: all 1s;
+  }
+
+  .panel.show {
+    top: 0;
+  }
+}
+
+
+@media only screen and (max-width: 320px) {
+  .btn-icon {
+    width: 12rem;
+    height: 12rem;
+  }
+
+  .option-btn{
+    width: 22rem;
+  }
+
 }
 
 </style>

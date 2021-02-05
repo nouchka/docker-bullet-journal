@@ -5,7 +5,7 @@
             <h5>{{item.category}} || {{formatDateTime(item.dateTime)}}</h5>
             <div class="btn-container">
                 <v-icon @click="toggleCompleted(item)" name="check" class="btn-icon" v-bind:class="{'completed':item.completed}"/>
-                <v-icon @click="setEditItem(item)" name="pen" class="btn-icon"/>
+                <v-icon @click="editingItem(item)" name="pen" class="btn-icon"/>
                 <v-icon @click="deleteItem(item._id)" name="trash" class="btn-icon"/>
             </div>
         </div>
@@ -20,7 +20,11 @@ export default {
     name: "Item",
     props: ["item"],
     methods: {
-       ...mapActions(["updateItem", "deleteItem", "setEditItem"]),
+       ...mapActions(["updateItem", "deleteItem", "setEditItem", "changePanel"]),
+       editingItem(item){
+           this.setEditItem(item)
+           this.changePanel('action');
+       },
       formatDateTime(dateTime) {
       const date = new Date(dateTime);
       const weekday = new Intl.DateTimeFormat("default", {
