@@ -86,7 +86,6 @@ export default {
                     password: this.signUpInfo.password,
                 }
             );
-            
         } else {
             this.matchingPW = false;
         }
@@ -104,10 +103,6 @@ h1 {
 h3 {
     color:  rgb(25, 81, 94);
     font-weight: 500;
-}
-
-input {
-    margin: 5rem 0 10rem;
 }
 
 h6 {
@@ -130,6 +125,10 @@ form {
     flex-direction: column;
     justify-content: space-between;
     height: 80%;
+}
+
+input {
+    margin: 5rem 0 10rem;
 }
 
 #login {
@@ -171,10 +170,6 @@ form {
     padding: 5% 0;
 }
 
-.no-display {
-    display: none;
-}
-
 .message {
     width: 80%;
     text-align: center;
@@ -188,16 +183,17 @@ form {
 }
 
 @media only screen and (max-width: 700px), (max-height: 850px) {
+
+    h3 {
+        font-size: 12rem;
+    }
+
     .greeting {
         font-size: 20rem;
     }
 
     .greeting span {
         font-size: 30rem;
-    }
-
-    h3 {
-        font-size: 12rem;
     }
 
     .entry-options {

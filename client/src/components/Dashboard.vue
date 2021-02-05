@@ -3,7 +3,6 @@
      <ActionPanel/>
      <CollectionsPanel/>
      <HabitsPanel />
-
   </div>
 </template>
 
@@ -11,7 +10,6 @@
 import ActionPanel from "./Actions/ActionPanel"
 import CollectionsPanel from "./Collections/CollectionsPanel"
 import HabitsPanel from "./Habits/HabitsPanel"
-
 
 export default {
   name: 'Dashboard',
@@ -36,7 +34,7 @@ export default {
 
 @media only screen and (max-width: 1400px) {
   #dashboard{ 
-  grid-template-columns: 7fr 3fr;
+    grid-template-columns: 7fr 3fr;
   }
 }
 
@@ -59,8 +57,8 @@ export default {
     width: 95%;
     height: 95vh;
     justify-self: center;
-    background: rgb(255, 255, 255, 0.3);
     padding: 10rem;
+    background: rgb(255, 255, 255, 0.3);
     backdrop-filter: blur(10rem);
 }
 
@@ -100,6 +98,8 @@ export default {
     border-bottom: 1rem dashed rgb(25, 81, 94, 0.3);
     cursor: pointer;
 }
+
+/* Overflow / Scrolling */
 
 .wrapper {
     overflow-y: scroll;
@@ -167,11 +167,11 @@ svg.active {
 
 
 @media only screen and (max-width: 1000px), (max-height: 700px) {
-    .panel {
-      display: inline-block;
-      position: absolute;
-      top: 100vh;
-      transition: all 1s;
+  .panel {
+    display: inline-block;
+    position: absolute;
+    top: 100vh;
+    transition: all 1s;
   }
 
   .panel.show {
@@ -189,7 +189,6 @@ svg.active {
   .option-btn{
     width: 22rem;
   }
-
 }
 
 </style>

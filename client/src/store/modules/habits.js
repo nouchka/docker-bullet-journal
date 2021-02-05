@@ -49,16 +49,18 @@ const actions = {
       const res = await axios.delete(`api/habits/${deleteId}`);
       commit("deleteStateHabit", res.data._id);
    },
-   async setDateRange({ commit, state }, currentDate) {
-      let [year, month] = [0, 0];
+   // display range of one month: current month or the month containing date selected
+   async setDateRange({ commit, state }, currentDate = [0, 0]) {
+      let [year, month] = currentDate;
 
       if (state.displayMonth.length === 0) {
          [year, month] = new Date().toISOString().split("-", 2);
-      } else {
-         [year, month] = currentDate;
       }
+      // } else {
+      //    year = currentDate[0];
+      //    month = currentDate[1];
+      // }
 
-      console.log(year, month);
       const lastDay = new Date(year, month, 0).getDate() + 1;
       const dateRange = await [...Array(lastDay).keys()];
       dateRange.shift();
@@ -81,7 +83,6 @@ const mutations = {
    },
    addStateHabit(state, newHabit) {
       state.habits.push(newHabit);
-
       state.newHabit = {
          content: "",
          abbr: "",

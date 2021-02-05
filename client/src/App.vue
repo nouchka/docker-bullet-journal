@@ -28,14 +28,13 @@ html {
 body {
   width: 100vw;
   height: 100vh;
-   overflow: hidden;
+  overflow: hidden;
 }
 
 h1, h3 {
   color: white;
   font-weight: 300;
   text-transform: uppercase;
- 
 }
 
 h1 {
@@ -68,7 +67,6 @@ h4 {
   font-weight: 500;
 }
 
-
 h5 {
   font-weight: 300;
 }
@@ -92,7 +90,7 @@ input[type='radio'] {
 }
 
 input:invalid {
-    box-shadow: none;
+  box-shadow: none;
 }
 
 button {
@@ -126,6 +124,5 @@ form {
     background: rgb(255, 255, 255, 0.7);
     backdrop-filter: blur(10rem);
 }
-
 
 </style>

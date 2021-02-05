@@ -54,9 +54,11 @@ const actions = {
       const res = await axios.delete(`api/items/${deleteId}`);
       commit("deleteStateItem", res.data._id);
    },
+   // set selected category in suggestions menu to newItem
    fillCategory({ commit }, category) {
       commit("fillCategory", category);
    },
+   // fill newItem with data equal to the item being edited (for resubmission)
    setEditItem({ commit }, item) {
       commit("changeEditItem", item);
    },

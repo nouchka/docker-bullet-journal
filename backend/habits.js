@@ -1,9 +1,8 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const router = express.Router();
-// const checkToken = require('./checkToken')
 
-//Schema
+// Schema
 const HabitsSchema = mongoose.Schema({
    userId: {
       type: String,
@@ -20,17 +19,14 @@ const HabitsSchema = mongoose.Schema({
    datesCompleted: [String],
 });
 
+// Model
 const Habit = mongoose.model("Habit", HabitsSchema);
 
-//Routes
+// Routes
 
 router.get("/:userId", async (req, res) => {
-   try {
-      const userHabits = await Habit.find({ userId: req.params.userId });
-      res.json(userHabits);
-   } catch (err) {
-      console.log(err);
-   }
+   const userHabits = await Habit.find({ userId: req.params.userId });
+   res.json(userHabits);
 });
 
 router.post("/:userId", async (req, res) => {
@@ -39,39 +35,26 @@ router.post("/:userId", async (req, res) => {
       userId: req.params.userId,
    });
 
-   try {
-      const newHabit = await habit.save();
-      res.json(newHabit);
-   } catch (err) {
-      console.log(err);
-   }
+   const newHabit = await habit.save();
+   res.json(newHabit);
 });
 
 router.delete("/:habitId", async (req, res) => {
-   try {
-      const deleteHabit = await Habit.findOneAndDelete({
-         _id: req.params.habitId,
-      });
-      res.json(deleteHabit);
-   } catch (err) {
-      console.log(err);
-   }
+   const deleteHabit = await Habit.findOneAndDelete({
+      _id: req.params.habitId,
+   });
+   res.json(deleteHabit);
 });
 
 router.put("/:habitId", async (req, res) => {
-   try {
-      const updateHabit = await Habit.findOneAndUpdate(
-         {
-            _id: req.params.habitId,
-         },
-         req.body,
-         { new: true }
-      );
-
-      res.json(updateHabit);
-   } catch (err) {
-      console.log(err);
-   }
+   const updateHabit = await Habit.findOneAndUpdate(
+      {
+         _id: req.params.habitId,
+      },
+      req.body,
+      { new: true }
+   );
+   res.json(updateHabit);
 });
 
 module.exports = router;

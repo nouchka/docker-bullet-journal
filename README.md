@@ -1,2 +1,27 @@
-# vue-bullet-journal
-Bullet Journal - Vue
+# Vue Bullet Journal
+
+This application is created to mimic the collections section and habit tracker of the Bullet Journal System.
+
+A guide to the Bullet Journal System: <br>
+https://www.tinyrayofsunshine.com/blog/bullet-journal-guide
+
+---
+
+### The purpose of this project is to learn and gain practice with:
+
+-  Vue.js framework
+-  How to incorporate components and states
+-  State management (specifically Vuex)
+-  Building a RESTful API
+-  Authentication
+-  Data storage (NoSQL database)
+-  **Putting it all together**
+
+---
+
+### Built with:
+
+-  Vue.js and Vuex
+-  Node.js and Express.js
+-  MongoDB
+-  HTML, CSS, JavaScript

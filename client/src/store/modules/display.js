@@ -1,3 +1,5 @@
+// for responsive design
+
 const state = {
    showPanel: "collections",
 };

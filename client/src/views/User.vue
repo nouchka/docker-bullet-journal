@@ -34,7 +34,6 @@
 import Dashboard from "../components/Dashboard"
 import {mapGetters, mapActions} from 'vuex'
 
-
 export default {
   name: 'User',
   components: {
@@ -47,7 +46,7 @@ export default {
       if (this.showWhichPanel !== panel)  {
         this.changePanel(panel);
       } else {
-        this.changePanel("collections");
+        this.changePanel("collections"); //default
       }
     }
   },  
@@ -61,7 +60,7 @@ export default {
     width: 100vw;
     height: 100vh;
     padding: 2.5vh 2.5vw;
-  }
+ }
 
   .btn-icon {
     margin: 0 10rem 10rem 0;

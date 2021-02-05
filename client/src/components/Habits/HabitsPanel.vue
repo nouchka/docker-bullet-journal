@@ -13,12 +13,6 @@ export default {
     components: {
         Habits
     },
-    computed: {
-        ...mapGetters(["showWhichPanel"])
-    }
+    computed: mapGetters(["showWhichPanel"])
 }
 </script>
-
-<style scoped>
-
-</style>

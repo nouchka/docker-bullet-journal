@@ -11,7 +11,6 @@ import "vue-awesome/icons";
 Vue.component("v-icon", Icon);
 
 router.beforeEach((to, from, next) => {
-   console.log(store.getters.getLoggedIn);
    if (to.matched.some((record) => record.meta.requiresAuth)) {
       if (!store.getters.getLoggedIn) {
          next({

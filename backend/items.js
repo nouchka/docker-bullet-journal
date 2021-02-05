@@ -24,17 +24,14 @@ const ItemsSchema = mongoose.Schema({
    dateTime: String,
 });
 
+// Model
 const Item = mongoose.model("Item", ItemsSchema);
 
 // Routes
 
 router.get("/:userId", async (req, res) => {
-   try {
-      const userItems = await Item.find({ userId: req.params.userId });
-      res.json(userItems);
-   } catch (err) {
-      console.log(err);
-   }
+   const userItems = await Item.find({ userId: req.params.userId });
+   res.json(userItems);
 });
 
 router.post("/:userId", async (req, res) => {
@@ -42,37 +39,24 @@ router.post("/:userId", async (req, res) => {
       ...req.body,
       userId: req.params.userId,
    });
-
-   try {
-      const newItem = await item.save();
-      res.json(newItem);
-   } catch (err) {
-      console.log(err);
-   }
+   const newItem = await item.save();
+   res.json(newItem);
 });
 
 router.delete("/:itemId", async (req, res) => {
-   try {
-      const deletedItem = await Item.findOneAndDelete({
-         _id: req.params.itemId,
-      });
-      res.json(deletedItem);
-   } catch (err) {
-      console.log(err);
-   }
+   const deletedItem = await Item.findOneAndDelete({
+      _id: req.params.itemId,
+   });
+   res.json(deletedItem);
 });
 
 router.put("/:itemId", async (req, res) => {
-   try {
-      const updatedItem = await Item.findOneAndUpdate(
-         { _id: req.params.itemId },
-         req.body,
-         { new: true }
-      );
-      res.json(updatedItem);
-   } catch (err) {
-      console.log(err);
-   }
+   const updatedItem = await Item.findOneAndUpdate(
+      { _id: req.params.itemId },
+      req.body,
+      { new: true }
+   );
+   res.json(updatedItem);
 });
 
 module.exports = router;
