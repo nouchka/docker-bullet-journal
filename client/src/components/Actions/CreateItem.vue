@@ -69,10 +69,14 @@ export default {
         ...mapActions(['addItem', 'updateItem','fillCategory','changePanel']),
         addingItem() {
             if (this.getItemMode === "create") {
+                if (this.submissionDate === "" || this.submissionTime === "") {
+                    this.submissionDate = this.newItem.dateTime.split('T')[0];
+                    this.submissionTime = this.newItem.dateTime.split('T')[1];
+                } 
                 this.addItem(
                     {...this.newItem,
                     ['dateTime']: `${this.submissionDate}T${this.submissionTime}`
-                    });
+                    }); 
             } else {
                 this.updateItem({...this.newItem,
                     ['dateTime']: `${this.submissionDate}T${this.submissionTime}`

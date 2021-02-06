@@ -32,13 +32,13 @@ export default {
   grid-template-columns: 4fr 7fr 2fr;
 }
 
-@media only screen and (max-width: 1400px) {
+@media only screen and (max-width: 1400px), (max-height: 600px) {
   #dashboard{ 
     grid-template-columns: 7fr 3fr;
   }
 }
 
-@media only screen and (max-width: 1000px), (max-height: 700px) {
+@media only screen and (max-width: 1000px), (max-height: 600px) {
     #dashboard {
       display: inline-block;
       height: 95vh;

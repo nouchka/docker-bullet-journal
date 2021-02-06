@@ -82,7 +82,7 @@ h2 {
 
 
 
-@media only screen and (max-width: 1400px) {
+@media only screen and (max-width: 1400px), (max-height: 600px) {
     #action-panel {
         position: absolute;
         z-index: 10;
@@ -92,7 +92,7 @@ h2 {
         padding: 15rem;
         grid-gap: 20rem;
         grid-template-rows: none;
-        grid-template-columns: 200rem 1fr 1fr;
+        grid-template-columns: 260rem 1fr 1fr;
         backdrop-filter: blur(10rem);
         transition: all 1s;
         box-shadow: 0 -3rem 10rem 5rem rgb(25, 81, 94, 0.2);
@@ -105,6 +105,7 @@ h2 {
 
     .image-box {
         height: 70%;
+        max-height: 260rem;
     }
 
     h2 {
@@ -125,7 +126,7 @@ h2 {
 
 }
 
-@media only screen and (max-width: 1000px), (max-height: 700px) {
+@media only screen and (max-width: 1000px), (max-height: 600px) {
 
     #action-panel {
          width: 95%;

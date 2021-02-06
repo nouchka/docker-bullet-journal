@@ -79,13 +79,13 @@ export default {
     display: none;
   }
 
-  @media only screen and (max-width: 1400px) {
+  @media only screen and (max-width: 1400px), (max-height: 600px) {
     .action-btn {
       display: block;
     }
   }
 
-  @media only screen and (max-width: 1000px), (max-height: 700px) {
+  @media only screen and (max-width: 1000px), (max-height:600px) {
 
     #user {
       padding: 20rem 2.5vw 10rem;
