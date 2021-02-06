@@ -2,6 +2,8 @@
 
 This application is created to mimic the collections section and habit tracker of the Bullet Journal System.
 
+[Live Link](https://fathomless-anchorage-81259.herokuapp.com/)
+
 A guide to the Bullet Journal System: <br>
 https://www.tinyrayofsunshine.com/blog/bullet-journal-guide
 
