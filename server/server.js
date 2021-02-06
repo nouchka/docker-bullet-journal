@@ -15,7 +15,7 @@ app.use("/api/items", itemsRoute);
 app.use("/api/habits", habitsRoute);
 app.use("/api/users", usersRoute);
 
-app.get("/", (req, res) => {
+app.get("/api", (req, res) => {
    res.send("Vue Bullet Journal Server");
 });
 
