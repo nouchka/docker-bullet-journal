@@ -22,7 +22,8 @@ export default {
 html {
   font-size: 6.25%;
   background: linear-gradient(#c1dfc4, #b7e2f0);
-  overflow: hidden;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 body {

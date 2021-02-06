@@ -4,6 +4,11 @@ This application is created to mimic the collections section and habit tracker o
 
 [Live Link](https://fathomless-anchorage-81259.herokuapp.com/)
 
+Feel free to test with an existing account: <br>
+
+-  Login: example@email.com
+-  Password: example
+
 A guide to the Bullet Journal System: <br>
 https://www.tinyrayofsunshine.com/blog/bullet-journal-guide
 
