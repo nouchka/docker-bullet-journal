@@ -4,7 +4,7 @@ require("dotenv/config");
 
 const app = express();
 app.use(express.json());
-const port = 5000;
+const port = process.env.PORT || 5000;
 
 // Routes
 const itemsRoute = require("./routes/items.js");
@@ -18,6 +18,12 @@ app.use("/api/users", usersRoute);
 app.get("/", (req, res) => {
    res.send("Vue Bullet Journal Server");
 });
+
+if (process.env.NODE_ENV === "production") {
+   app.use(express.static(__dirname + "/public"));
+
+   app.get(/.*/, (req, res) => res.sendFile(__dirname + "/public/index.html"));
+}
 
 mongoose.connect(
    process.env.dbConnection,
