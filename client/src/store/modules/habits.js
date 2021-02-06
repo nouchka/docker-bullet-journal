@@ -27,7 +27,8 @@ const actions = {
       const resHabits = await axios.get(`api/habits/${res.data}`);
       commit("initUserHabits", resHabits.data);
 
-      await dispatch("setDateRange");
+      const currentDate = new Date().toISOString().split("-", 2);
+      await dispatch("setDateRange", currentDate);
    },
    async addHabit({ commit, rootState }, newHabit) {
       const activeUser = rootState.users.activeUser;
@@ -50,17 +51,8 @@ const actions = {
       commit("deleteStateHabit", res.data._id);
    },
    // display range of one month: current month or the month containing date selected
-   async setDateRange({ commit, state }, currentDate = [0, 0]) {
-      let [year, month] = currentDate;
-
-      if (state.displayMonth.length === 0) {
-         [year, month] = new Date().toISOString().split("-", 2);
-      }
-      // } else {
-      //    year = currentDate[0];
-      //    month = currentDate[1];
-      // }
-
+   async setDateRange({ commit }, currentDate) {
+      const [year, month] = currentDate;
       const lastDay = new Date(year, month, 0).getDate() + 1;
       const dateRange = await [...Array(lastDay).keys()];
       dateRange.shift();
