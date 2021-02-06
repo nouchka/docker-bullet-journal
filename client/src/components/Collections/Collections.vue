@@ -67,7 +67,7 @@ export default {
 .item-container {
     display: grid;
     grid-gap: 10rem;
-    grid-template-columns: repeat(auto-fit, minmax(230rem, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(230rem, 1fr));
     padding: 10rem;
     overflow-y: scroll;
     scrollbar-width: none;

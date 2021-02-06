@@ -41,6 +41,9 @@ const actions = {
          router.push("/user");
       }
    },
+   changeErrorMessage({ commit }, message) {
+      commit("setErrorMessage", message);
+   },
    logUserOut({ commit }) {
       localStorage.removeItem("auth-token");
       commit("setToken", "");

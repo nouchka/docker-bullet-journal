@@ -121,7 +121,7 @@ h3 {
 .category-dropup {
     width: 200rem;
     position: absolute;
-    top: -80rem;
+    bottom: 25rem;
     left: -80rem;
 }
 

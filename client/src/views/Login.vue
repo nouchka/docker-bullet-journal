@@ -2,22 +2,22 @@
   <div id="login">
     <h1 class="greeting"><span>W</span>elcome</h1>
     <div class="entry-options">
-        <h3 @click="entryLogin = true">Login</h3>
+        <h3 @click="entryLogin = true">Log In</h3>
         <p>/</p>
         <h3 @click="entryLogin = false">Sign Up</h3>
     </div>
     <div class="form-container">
         <div class="action-boxes" :class="{'front':entryLogin}">
-            <div class="header"><h1>Login</h1></div>
+            <div class="header"><h1>Log In</h1></div>
             <form @submit.prevent="loggingIn">
                 <div>
                     <label for="loginEmail"><h3>Email</h3></label>
                     <input type="email" id="loginEmail" v-model="loginInfo.email" required>
                     <label for="loginPassword"><h3>Password</h3></label>
-                    <input :type="showLoginPW ? 'text' : 'password'" id="loginPassword" v-model="loginInfo.password" required>
+                    <input :type="showLoginPW ? 'text' : 'password'" id="loginPassword" v-model="loginInfo.password" placeholder="Minimum 5 characters" minLength="5" required>
                     <h6 @click="showLoginPW = !showLoginPW" :class="{'active':showLoginPW}">Show password</h6>
                 </div>
-                <button type="submit">Login</button>
+                <button type="submit">Log In</button>
             </form>
         </div>
         <div class="action-boxes" :class="{'front':!entryLogin}">
@@ -69,7 +69,7 @@ export default {
       } 
   },
   methods: {
-      ...mapActions(['loginUser', 'signUpUser']),
+      ...mapActions(['loginUser', 'signUpUser', 'changeErrorMessage']),
       loggingIn() {
           this.loginUser({
               email: this.loginInfo.email,
@@ -88,6 +88,7 @@ export default {
             );
         } else {
             this.matchingPW = false;
+            this.changeErrorMessage("");
         }
       },
   }

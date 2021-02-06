@@ -7,16 +7,16 @@ app.use(express.json());
 const port = 5000;
 
 // Routes
-const itemsRoute = require("./items.js");
-const habitsRoute = require("./habits.js");
-const usersRoute = require("./users.js");
+const itemsRoute = require("./routes/items.js");
+const habitsRoute = require("./routes/habits.js");
+const usersRoute = require("./routes/users.js");
 
 app.use("/api/items", itemsRoute);
 app.use("/api/habits", habitsRoute);
 app.use("/api/users", usersRoute);
 
 app.get("/", (req, res) => {
-   res.send("Bullet Journal Backend");
+   res.send("Vue Bullet Journal Server");
 });
 
 mongoose.connect(

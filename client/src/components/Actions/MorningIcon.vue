@@ -78,9 +78,9 @@
             <path class="cls-28" d="M298 349v52a18 18 0 010 4 12 12 0 01-5 8 9 9 0 01-3 1 12 12 0 01-6 0l-33-12v-10l22 7 11 3c3-1 3-4 3-9v-41c0-6-3-14-12-16l-3-1-21-7v-11l31 11 4 1c7 3 12 11 12 20z"/>
             </g>
             <g id="heat">
-            <path id="heat2" class="cls-33" d="M167 111s-38 35 0 71 0 68 0 68 28-36 0-60c-22-19-35-51 0-79z"/>
-            <path id="heat2-2" data-name="heat2" class="cls-33" d="M207 126s-32 33 0 66 0 63 0 63 23-33 0-55c-18-18-29-47 0-74z"/>
-            <path id="heat1" class="cls-33" d="M244 108s-32 32 0 66 0 63 0 63 23-34 0-56c-19-17-30-47 0-73z"/>
+            <path id="heat1" class="cls-33" d="M167 111s-38 35 0 71 0 68 0 68 28-36 0-60c-22-19-35-51 0-79z"/>
+            <path id="heat2" data-name="heat2" class="cls-33" d="M207 126s-32 33 0 66 0 63 0 63 23-33 0-55c-18-18-29-47 0-74z"/>
+            <path id="heat3" class="cls-33" d="M244 108s-32 32 0 66 0 63 0 63 23-34 0-56c-19-17-30-47 0-73z"/>
             </g>
         </g>
     </svg>
@@ -94,50 +94,76 @@ export default {
 
 <style scoped>
 
-    .cls-14{
-        fill:#cc9b62;
-        }
-        
-    .cls-15{
-        fill-opacity:.08;
+#heat1 {
+    animation: float 5s infinite;
+}
+
+#heat2 {
+    animation: float 5s 2s infinite;
+}
+
+#heat3 {
+    animation: float 5s 1s infinite;
+}
+
+@keyframes float {
+    0%{
+        transform: translateY(0);
+        opacity: 0;
+    }
+    40%{
+        opacity: 1;
+    }
+    100%{
+        transform: translatey(-30rem);
+        opacity: 0;
+    }
+}
+
+.cls-14{
+    fill:#cc9b62;
     }
     
-    .cls-16{
-        fill:#d6a160;
+.cls-15{
+    fill-opacity:.08;
+}
+
+.cls-16{
+    fill:#d6a160;
+}
+
+.cls-18{
+    fill:#826038;
     }
     
-    .cls-18{
-        fill:#826038;
-        }
-        
-    .cls-19{
-        fill:#40997e;
-    }
-    
-    .cls-20{
-        fill:#8f693d;
-    }
-    
-    .cls-23{
-        fill-opacity:.13;
-    
-    }
-    
-    .cls-25{
-        fill:#edede6;
-    }
-    
-    .cls-26{
-        fill:#f2f2eb;
-    }
-    
-    .cls-28{
-        fill:#d9d9d0;
-    }
-    
-    .cls-33{
-        fill:#fff;
-    }
+.cls-19{
+    fill:#40997e;
+}
+
+.cls-20{
+    fill:#8f693d;
+}
+
+.cls-23{
+    fill-opacity:.13;
+
+}
+
+.cls-25{
+    fill:#edede6;
+}
+
+.cls-26{
+    fill:#f2f2eb;
+}
+
+.cls-28{
+    fill:#d9d9d0;
+}
+
+.cls-33{
+    fill:#fff;
+}
 
 
 

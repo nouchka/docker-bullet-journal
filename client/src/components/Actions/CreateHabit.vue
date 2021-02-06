@@ -25,7 +25,7 @@ export default {
                 this.addHabit(this.newHabit);
             } else {
                 this.updateHabit(this.newHabit);
-                this.changePanel('collections');
+                this.changePanel('habits');
             }
         },
         title() {

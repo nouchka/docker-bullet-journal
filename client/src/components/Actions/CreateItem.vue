@@ -22,8 +22,8 @@
                 @click="fillCategory(category)">{{category}}</p>
             </div>
             <div class="dateTime">
-                <input type="date" v-model="date"/>
-                <input type="time" v-model="time"/>
+                <input type="date" v-model="date" required/>
+                <input type="time" v-model="time" required/>
             </div>
             <button type="submit"><h5>Submit</h5></button>
         </form>
@@ -101,6 +101,7 @@ h4 {
 label {
     width: 100%;
     cursor: pointer;
+    height: 100%;
 }
 
 input[type="radio"]:checked + label {
