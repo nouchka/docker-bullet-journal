@@ -32,3 +32,8 @@ https://www.tinyrayofsunshine.com/blog/bullet-journal-guide
 -  Node.js and Express.js
 -  MongoDB
 -  HTML, CSS, JavaScript
+
+---
+
+### SVG art:
+- Adobe Illustrator
