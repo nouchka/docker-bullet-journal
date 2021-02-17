@@ -23,9 +23,14 @@ const User = mongoose.model("User", UsersSchema);
 // Routes
 
 router.post("/token", async (req, res) => {
-   const verify = jwt.verify(req.body.token, process.env.token);
-   const userId = verify._id;
-   res.json(userId);
+   jwt.verify(req.body.token, process.env.token, (err, data) => {
+      if (err) {
+         res.send(403);
+      } else {
+         const userId = data._id;
+         res.json(userId);
+      }
+   });
 });
 
 router.post("/login", async (req, res) => {
@@ -40,11 +45,11 @@ router.post("/login", async (req, res) => {
       if (!correctPw) {
          res.json("Incorrect password. Please try again.");
       } else {
-         const token = jwt.sign({ _id: user._id }, process.env.token);
-         res.header("auth-token", token);
-         res.json({
-            token: token,
-            user: { _id: user._id, email: user.email },
+         jwt.sign({ _id: user._id }, process.env.token, (err, token) => {
+            res.json({
+               token: token,
+               user: { _id: user._id },
+            });
          });
       }
    }
@@ -65,8 +70,6 @@ router.post("/signup", async (req, res) => {
       });
       const newUser = await user.save();
       const token = jwt.sign({ _id: user._id }, process.env.token);
-
-      res.header("auth-token", token);
       res.json({
          token: token,
          user: { _id: newUser._id, email: newUser.email },

@@ -24,6 +24,12 @@ html {
   background: linear-gradient(#c1dfc4, #b7e2f0);
   overflow-y: scroll;
   overflow-x: hidden;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+html::-webkit-scrollbar {
+  display: none;
 }
 
 body {
