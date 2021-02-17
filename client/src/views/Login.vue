@@ -1,6 +1,7 @@
 <template>
   <div id="login">
     <h1 class="greeting"><span>W</span>elcome</h1>
+    <h2>Vue Bullet Journal</h2>
     <div class="entry-options">
         <h3 @click="entryLogin = true">Log In</h3>
         <p>/</p>
@@ -98,7 +99,11 @@ export default {
 <style scoped>
 
 h1 {
-    margin: 0 auto;
+    margin: 0 auto 10rem;
+}
+
+h2 {
+    text-align: center;
 }
 
 h3 {

@@ -9,6 +9,11 @@ Feel free to test with an existing account: <br>
 -  Login: example@email.com
 -  Password: example
 
+View more images in **screenshots** folder:
+
+<img src="screenshots/desktop-1.png" alt="title-sequence" width="250" height="150"/>
+<img src="screenshots/desktop-2.png" alt="title-sequence" width="250" height="150"/>
+
 A guide to the Bullet Journal System: <br>
 https://www.tinyrayofsunshine.com/blog/bullet-journal-guide
 
@@ -32,3 +37,5 @@ https://www.tinyrayofsunshine.com/blog/bullet-journal-guide
 -  Node.js and Express.js
 -  MongoDB
 -  HTML, CSS, JavaScript
+
+---
