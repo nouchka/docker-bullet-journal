@@ -39,3 +39,7 @@ https://www.tinyrayofsunshine.com/blog/bullet-journal-guide
 -  HTML, CSS, JavaScript
 
 ---
+
+### SVG art:
+
+-  Adobe Illustrator
