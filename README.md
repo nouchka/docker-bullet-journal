@@ -2,7 +2,7 @@
 
 This application is created to mimic the collections section and habit tracker of the Bullet Journal System.
 
-[Live Link](https://fathomless-anchorage-81259.herokuapp.com/)
+[Live Link](https://vue-bullet-journal-vkwho.herokuapp.com/)
 
 Feel free to test with an existing account: <br>
 
