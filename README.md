@@ -12,7 +12,7 @@ Feel free to test with an existing account: <br>
 View more images in **screenshots** folder:
 
 <img src="screenshots/desktop-1.png" alt="login page" width="250" height="150"/>
-<img src="screenshots/desktop-2.png" alt="user-page" width="250" height="150"/>
+<img src="screenshots/desktop-2.png" alt="user page" width="250" height="150"/>
 
 A guide to the Bullet Journal System: <br>
 https://www.tinyrayofsunshine.com/blog/bullet-journal-guide
