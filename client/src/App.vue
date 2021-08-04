@@ -5,14 +5,12 @@
 </template>
 
 <script>
-
 export default {
-  name: 'App',
-}
+  name: "App",
+};
 </script>
 
 <style>
-
 * {
   margin: 0;
   padding: 0;
@@ -20,7 +18,7 @@ export default {
 }
 
 html {
-  font-size: 6.25%;
+  font-size: 1px;
   background: linear-gradient(#c1dfc4, #b7e2f0);
   overflow-y: scroll;
   overflow-x: hidden;
@@ -38,7 +36,8 @@ body {
   overflow: hidden;
 }
 
-h1, h3 {
+h1,
+h3 {
   color: white;
   font-weight: 300;
   text-transform: uppercase;
@@ -78,7 +77,8 @@ h5 {
   font-weight: 300;
 }
 
-input, button {
+input,
+button {
   border: none;
   background: none;
   outline: none;
@@ -89,10 +89,10 @@ input, button {
 input {
   border-bottom: 1rem solid rgb(25, 81, 94, 0.3);
   font: inherit;
-  color:  #19515e;
+  color: #19515e;
 }
 
-input[type='radio'] {
+input[type="radio"] {
   display: none;
 }
 
@@ -101,35 +101,33 @@ input:invalid {
 }
 
 button {
-  background:  rgb(82, 129, 141);
+  background: rgb(82, 129, 141);
   color: white;
   padding: 5rem;
   margin: 10rem 0;
   cursor: pointer;
-
 }
 
 form {
-    position: relative;
-    padding: 10rem;
-    height: 85%;
+  position: relative;
+  padding: 10rem;
+  height: 85%;
 }
 
 #app {
   position: relative;
-  font: 16rem 'Raleway', sans-serif;
+  font: 16rem "Raleway", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #19515e;
 }
 
 .action-boxes {
-    position: relative;
-    border-radius: 10rem;
-    width: 100%;
-    height: 100%;
-    background: rgb(255, 255, 255, 0.7);
-    backdrop-filter: blur(10rem);
+  position: relative;
+  border-radius: 10rem;
+  width: 100%;
+  height: 100%;
+  background: rgb(255, 255, 255, 0.7);
+  backdrop-filter: blur(10rem);
 }
-
 </style>
