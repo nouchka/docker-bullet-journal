@@ -1,0 +1,13 @@
+version: '3.7'
+
+services:
+  node:
+    build: .
+    ports:
+      - "5000:5000"
+    environment:
+      - dbConnection=mongodb://mongodb:27017/journal
+      - NODE_ENV=production
+      - token=test
+  mongodb:
+    image: mongo:latest
