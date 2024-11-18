@@ -1,4 +1,4 @@
-# Vue Bullet Journal
+# Vue Bullet Journal (not maintained)
 
 This application is created to mimic the collections section and habit tracker of the Bullet Journal System.
 
